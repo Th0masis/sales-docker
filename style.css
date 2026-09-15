@@ -687,6 +687,11 @@
   color: #d9e0e3;
 }
 
+.dark-slide .ot-before-after small,
+.dark-slide .ot-benefit-grid small {
+  color: #d9e0e3;
+}
+
 .ot-db-bottom span {
   color: var(--steel);
   font-size: 13px;
@@ -2232,6 +2237,8 @@ ul {
 
 .dark-slide {
   color: var(--white);
+  --steel: #d9e0e3;
+  --muted: #c7cdd1;
   background:
     linear-gradient(120deg, rgba(255, 122, 0, 0.08), transparent 35%),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 58px),
