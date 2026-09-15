@@ -105,7 +105,7 @@ class: ot-slide
 
 # Co přesně se v container řešení<br><span class="accent">buildí, spouští a ukládá?</span>
 <div class="ot-semantic-grid"><section v-click="1"><span>IMAGE</span><strong>Verzovaný balíček</strong><p>Obsahuje aplikaci, závislosti a konfiguraci potřebnou pro běh.</p></section><section v-click="2"><span>CONTAINER</span><strong>Běžící instance</strong><p>Je spuštěná z konkrétní image a má vlastní životní cyklus.</p></section><section v-click="3"><span>RUNTIME</span><strong>Prostředí pro běh</strong><p>Hostitel a jeho runtime vytváří, spouští a spravuje containery.</p></section><section v-click="4"><span>VOLUME</span><strong>Persistentní data</strong><p>Odděluje data služby od dočasného filesystemu containeru.</p></section></div>
-<div class="ot-definition" v-click="5"><strong>Praktická zkratka:</strong><span>image se vytváří a distribuuje; container se spouští a nahrazuje; volume se zálohuje a obnovuje.</span></div><div class="slide-id">04</div>
+<div class="ot-definition" v-click="5"><strong>Praktická zkratka:</strong><span>image je recept; container je běžící služba; volume drží data i po výměně containeru.</span></div><div class="slide-id">04</div>
 
 <!--
 [CLICK]
@@ -117,7 +117,7 @@ class: ot-slide
 [CLICK]
 **Volume** drží persistentní data. Databáze ani důležitá konfigurace nesmí záviset jen na dočasném filesystemu containeru.
 [CLICK]
-*Zkratka pro rozhodování:* image se vytváří a distribuuje, container se spouští a nahrazuje, volume se zálohuje a obnovuje. **Každá z těchto odpovědností má mít vlastníka.**
+*Zkratka pro zapamatování:* image je recept, container je běžící služba a volume drží data, i když container nahradíme novým. **Každá z těchto odpovědností má mít vlastníka.**
 -->
 
 ---
