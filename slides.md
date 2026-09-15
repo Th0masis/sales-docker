@@ -30,14 +30,7 @@ layout: cover
 <div class="ot-cover-rule"><span>JAK POZNAT, KDY MÁ KONTEJNER V OT SMYSL</span></div>
 <div class="slide-id">01</div>
 <!--
-[CLICK]
-Hlavní myšlenka: PLC dál řídí stroj. Container přichází do hry u služeb, které běží vedle PLC.  
-[CLICK]
-První obrazový signál: levá strana je řízení stroje, vpravo se objevují doprovodné služby.  
-[CLICK]
-Tím se vytváří základní rámec celé prezentace: PLC zůstává rozhodující, container je pro služby kolem něj.  
-[CLICK]
-Na konci by divák měl vědět, že otázka není „PLC nebo container“, ale „kdy je container vhodný pro služby vedle PLC“.
+Začnu jednou větou: **PLC řídí stroj, containery provozují služby okolo PLC.** *Krátká pauza.* Neřešíme tedy souboj technologií, ale správné rozdělení odpovědnosti.
 -->
 
 ---
@@ -54,13 +47,13 @@ class: ot-slide
 
 <!--
 [CLICK]
-První krok: PLC má jiný úkol než databáze, dashboard nebo integrační služba. Jeho práce je deterministické řízení stroje.  
+Tady je základní rozdělení: **PLC drží řídicí cyklus**, zatímco data, databáze, integrace a diagnostika mají vlastní tempo a vlastní provozní potřeby.
 [CLICK]
-Druhý krok: kolem PLC přibývají služby s jiným životním cyklem: data, historie, reporting, IT integrace, diagnostika.  
+Na dalším stroji nebo v další lokalitě se pak často opakuje stejný problém: přibývají verze, aktualizace a ruční instalace. *Právě tady vzniká provozní napětí.*
 [CLICK]
-Třetí krok: vchází do hry otázka, zda je to stále součást řídicí aplikace nebo už samostatná služba kolem PLC.  
+Toto je otázka pro obchodní rozhovor: **patří služba ještě do řídicí aplikace, nebo už ji chceme provozovat samostatně vedle PLC?**
 [CLICK]
-Závěr: container zde není náhrada PLC, ale nástroj pro oddělení a opakované provozování doprovodných služeb.
+Když služba není součástí reálného řídicího cyklu, otevírá se prostor pro samostatné nasazení a údržbu. **Container není náhrada PLC.**
 -->
 
 ---
@@ -94,14 +87,14 @@ const buildFiles = {
 
 <!--
 [CLICK]
-První krok: container je aplikace se svými závislostmi a konfigurací v jednom balíčku.  
+Nejdřív vzniká *build*: aplikace, její závislosti a konfigurace se připraví jako jeden opakovatelný celek. Záložky jen ukazují typické soubory, které se do něj promítají.
 [CLICK]
-Druhý krok: build vytváří image, tedy verzovaný balíček služby.  
+Výsledkem je **image** - verzovaný balíček služby. Konkrétní *tag*, například `service:1.4`, říká, kterou verzi chceme provozovat; registry ji umí předat na cílový hostitel.
 [CLICK]
-Třetí krok: z image se spustí běžící container, tedy konkrétní instance služby.  
+Z image se přes *pull* a *run* stane **běžící container**. To je konkrétní instance služby, ne samotný balíček.
 [CLICK]
-Shrnutí: přenositelnost neznamená „na jakýkoli OS“, ale „do kompatibilního prostředí a kompatibilní architektury CPU“.[CLICK]
-Poznámka pro sales: tento slide je obecný princip; konkrétní B&R deployment, runtime a platformu posoudí technický specialista.-->
+Zapamatujme si rozdíl: **image je balíček, container je běžící instance.** Přenositelnost znamená stejný běh v *kompatibilním prostředí*, ne na libovolném OS nebo CPU. Konkrétní platformu vždy posoudí technický specialista.
+-->
 
 ---
 layout: default
@@ -116,15 +109,15 @@ class: ot-slide
 
 <!--
 [CLICK]
-Image je verzovaný balíček. Máme vědět, kterou konkrétní verzi služby chceme provozovat.
+**Image** je verzovaný balíček. Pro provoz potřebujeme vědět, kterou přesnou verzi služby chceme nasadit.
 [CLICK]
-Container je běžící instance image. Jeho restart nebo nahrazení samo o sobě nemění image.
+**Container** je běžící instance image. *Restart* nebo nahrazení instance nemění původní image.
 [CLICK]
-Runtime je prostředí na hostiteli, které běh spravuje. Proto je součástí technického posouzení cílová platforma, síť a odpovědnost za provoz.
+**Runtime** na hostiteli container vytvoří, spustí a spravuje. Proto technické posouzení zahrnuje platformu, síť i odpovědnost za provoz.
 [CLICK]
-Volume řeší persistentní data. Databáze nebo důležitá konfigurace nesmí záviset jen na dočasném filesystemu containeru.
+**Volume** drží persistentní data. Databáze ani důležitá konfigurace nesmí záviset jen na dočasném filesystemu containeru.
 [CLICK]
-Toto rozdělení vede k praktické otázce: kdo vlastní image, kdo provoz containeru a kdo ověřuje zálohu a obnovu dat.
+*Zkratka pro rozhodování:* image se vytváří a distribuuje, container se spouští a nahrazuje, volume se zálohuje a obnovuje. **Každá z těchto odpovědností má mít vlastníka.**
 -->
 
 ---
@@ -138,13 +131,13 @@ class: ot-slide
 <div class="ot-quote" v-click="4">Container snižuje počet ručních zásahů a pomáhá provozovat stejnou službu opakovatelně v kompatibilním prostředí.</div><div class="slide-id">05</div>
 <!--
 [CLICK]
-První krok: standardní instalace na hostitelském systému vytváří rozdílné verze knihoven, nastavení a update na každém stroji.  
+Při standardní instalaci se aplikace a její závislosti skládají na každém hostiteli znovu. *To je místo, kde vzniká drift prostředí.*
 [CLICK]
-Druhý krok: s containerem se služba balí jako jeden artefakt se svými závislostmi a verzí.  
+U containeru je služba zabalená jako **jeden verzovaný artefakt** se svými závislostmi.
 [CLICK]
-Třetí krok: výsledek je menší drift prostředí a méně ručních zásahů při nasazení nebo úpravách.  
+Obrázek ilustruje provozní změnu: méně ručního skládání, více opakovatelného nasazení. Neznamená to automaticky stejnou platformu nebo nulovou konfiguraci.
 [CLICK]
-Závěr: nejde o to, že je container „lepší obecně“, ale že zjednodušuje opakovatelnost běhu služby ve srovnatelném prostředí.  
+Hodnota je **méně ručních zásahů a méně rozdílů mezi prostředími** - vždy jen v kompatibilním hostitelském prostředí.
 -->
 
 ---
@@ -159,13 +152,11 @@ class: dark-slide ot-slide
 
 <!--
 [CLICK]
-První krok: VM virtualizuje celé prostředí s vlastním Guest OS, proto má větší izolaci, ale vyšší nároky na zdroje a pomalejší start. Schéma vychází z lokálního podkladu `docs/sources/docker-220721080017-eb0483d6.pdf`: VM přidává Guest OS pro každou instanci, zatímco containery sdílejí hostitelský OS a container engine.  
+Podívejme se na vrstvy. U *virtuálního stroje* má každá instance vlastní *Guest OS* nad hypervizorem. To dává vyšší izolaci, ale také vyšší režii.
 [CLICK]
-Druhý krok: container izoluje službu a její závislosti, zatímco sdílí kernel hostitelského OS. Pro obchodníka je důležité si pamatovat rozdíl mezi image, runtime a běžícím containerem; konkrétní runtime a platformu vždy posoudí technický specialista.  
+U *containeru* jsou oddělené aplikace a knihovny, ale sdílejí *container engine* a hostitelský OS. **Izolujeme službu, ne celé prostředí.**
 [CLICK]
-Třetí krok: otázka není „co je lepší“, ale „kterou vrstvu chceme oddělit a jakou úroveň izolace skutečně potřebujeme“.  
-[CLICK]
-Závěr: container je vhodný tam, kde chceme oddělit službu, ne celé prostředí.
+*Pauza.* Nejde o otázku „co je lepší“. Jde o to, **kterou vrstvu potřebujeme izolovat** a zda cílová platforma splňuje požadavky konkrétního provozu.
 -->
 
 ---
@@ -181,11 +172,11 @@ class: dark-slide ot-slide
 
 <!--
 [CLICK]
-Virtuální stroj je vhodný, když potřebujeme izolovat celé prostředí včetně vlastního Guest OS. Přináší ale větší provozní režii.
+Když potřebujeme oddělit celé prostředí nebo použít jiný *Guest OS*, dává smysl virtuální stroj. Cena za to je vyšší provozní režie.
 [CLICK]
-Container je vhodný, když chceme samostatně provozovat konkrétní službu se závislostmi v kompatibilním hostitelském prostředí.
+Když chceme samostatně provozovat konkrétní službu se závislostmi na kompatibilním hostiteli, je vhodnější container. **Jeho hlavní hodnotou je vlastní životní cyklus služby.**
 [CLICK]
-„OT hranice“ znamená provozní požadavky průmyslové automatizace, které technologie sama nevyřeší: deterministický real-time, safety, dostupnost, failover, síť a odpovědnost za provoz. Proto nevybíráme podle zkratky „rychlejší“ nebo „modernější“; technický specialista ověří, zda daná platforma tyto požadavky konkrétního stroje splní.
+*Pauza.* Provozní požadavky OT platí pro obě možnosti: *deterministický real-time*, safety, dostupnost, failover, síť a odpovědnost za provoz. **Technický specialista ověří konkrétní stroj a platformu.**
 -->
 
 ---
@@ -201,19 +192,19 @@ class: ot-slide
 
 <!--
 [CLICK]
-Build vytváří verzovanou image ze zdrojů a konfigurace. Tím vznikne opakovatelný artefakt pro další práci.
+Začínáme *buildem*: ze zdrojů a konfigurace vznikne **verzovaná image**. Vlevo je krok, vpravo je jeho jednoduchá CLI ukázka.
 [CLICK]
-Test ověří očekávané chování image ještě před nasazením. Obchodní otázka zní: kdo test a přijetí konkrétní verze vlastní?
+Pak přichází *test*. Ještě před nasazením ověříme očekávané chování image. **Kdo test a přijetí verze vlastní?** To je podstatná obchodní i provozní otázka.
 [CLICK]
-Ověřená image dostane konkrétní tag nebo digest a jde do registry. Tím vzniká dohledatelný artefakt pro další prostředí, ne nepojmenovaný soubor na serveru.
+Ověřená image dostane konkrétní *tag* nebo *digest* a uloží se do registry. Vzniká **dohledatelný artefakt**, ne nepojmenovaný soubor na serveru.
 [CLICK]
-Na cílovém hostiteli se image stáhne příkazem docker pull. Registry distribuuje image; Docker daemon / Engine pak spravuje samotný běh containeru.
+Na cílovém hostiteli provedeme *pull*. Registry image distribuuje; *Docker daemon / Engine* pak spravuje běh containeru.
 [CLICK]
-Příkaz docker run vytvoří a spustí container. Přepínač -p 8080:80 ukazuje, že port aplikace je přístupný z hostitele; síť a publikované porty jsou vědomé provozní rozhodnutí.
+Krok *run* vytvoří běžící container. Přepínač `-p 8080:80` ukazuje, že publikovaný port je vědomé síťové rozhodnutí, ne automatická vlastnost služby.
 [CLICK]
-Po spuštění sledujeme stav přes docker logs a health check. „Běží“ není automaticky totéž jako „služba je připravená“.
+Po spuštění službu sledujeme přes *logs* a *health check*. **„Běží“ ještě neznamená „je připravená“.**
 [CLICK]
-Aktualizace znamená ověřenou novou image, nahrazení běžící instance a znovu ověření služby. Image má životní cyklus build a distribuce; container má životní cyklus run, observe a replace.
+Aktualizace znamená ověřenou novou image, nahrazení běžící instance a nové ověření. *Image* se buildí a distribuuje; **container se spouští, sleduje a nahrazuje.**
 -->
 
 ---
@@ -238,15 +229,15 @@ volumes:
 
 <!--
 [CLICK]
-Docker Compose popíše více služeb v jednom YAML souboru. Není to další typ containeru, ale deklarace menšího stacku na jednom hostiteli.
+*Docker Compose* popíše více služeb v jednom YAML souboru. **Není to další typ containeru**; je to deklarace menšího stacku na jednom hostiteli.
 [CLICK]
-Služba app hledá databázi pod jménem db. Síť mezi službami je součást definice; port zveřejňujeme pouze tam, kde jej skutečně potřebuje hostitel nebo klient.
+Služba `app` komunikuje s databází přes název `db`. Síť mezi službami je součást definice; port publikujeme jen tam, kde jej opravdu potřebuje hostitel nebo externí klient.
 [CLICK]
-Databázová data patří do named volume, ne pouze do filesystemu běžícího containeru. Proto je záloha a obnova konkrétní provozní odpovědnost.
+Databázová data patří do *named volume*, ne jen do filesystemu běžícího containeru. **Záloha a obnova dat mají konkrétního vlastníka.**
 [CLICK]
-Příkazy ukazují běžný provoz stacku: spustit, ověřit stav, číst logy a řízeně ukončit. Příkaz down s parametrem -v by mohl odstranit named volumes, proto jej zde záměrně neukazujeme.
+Tyto příkazy pokrývají běžný provoz stacku: spustit, ověřit stav, číst logy a řízeně ukončit. *Pozor:* `docker compose down -v` může odstranit named volumes, proto ho zde záměrně neukazujeme.
 [CLICK]
-depends_on není health check databáze, pouze pořadí startu. Compose je vhodný pro menší lokální nebo edge stack; více lokalit, failover a centrální správa vyžadují další provozní vrstvu.
+`depends_on` určuje pořadí startu, **ne připravenost databáze**. Compose je vhodný pro lokální nebo edge stack na jednom hostiteli; multi-site, failover a centrální správa potřebují další provozní vrstvu.
 -->
 
 ---
@@ -262,15 +253,13 @@ class: dark-slide ot-slide
 <div class="ot-qualification" v-click="4"><span>OTÁZKY PŘED DALŠÍM KROKEM</span><b>Kolikrát službu nasazujeme?</b><b>Jak ji budeme aktualizovat?</b><b>Je hostitel, síť a storage kompatibilní?</b><b>Kdo odpovídá za provoz?</b></div>
 <!--
 [CLICK]
-První krok: ruční instalace vede k tomu, že každá linka nebo stroj pracuje trochu jinak.
+Vlevo je známá realita: ruční instalace a drobně rozdílné stroje. Vpravo je **jeden balíček služby**, který lze opakovaně nasadit.
 [CLICK]
-Druhý krok: s containerem je jeden balíček služby a stejný způsob nasazení na více místech.  
+Tři přínosy jsou praktické: rychlejší rozjezd doplňkové služby, aktualizace mimo PLC a stejné řešení pro další stroj nebo lokalitu.
 [CLICK]
-Třetí krok: služba se může aktualizovat nebo rozjíždět samostatně, bez zásahu do PLC runtime.  
+*Pauza.* To není univerzální slib úspory. **Přínos vždy závisí na rozsahu a implementaci.**
 [CLICK]
-Než nabídku posuneme dál, potřebujeme znát rozsah nasazení, způsob aktualizace, kompatibilitu hostitele, sítě a storage a vlastníka provozu. Tyto odpovědi jsou vstupem pro technického specialistu.
-[CLICK]
-Závěr: přínos závisí na rozsahu a implementaci, ale princip je stejný — opakovatelnost služeb kolem PLC.
+Než půjdeme dál, položme čtyři otázky: kolikrát se služba nasazuje, jak se aktualizuje, zda je kompatibilní hostitel, síť a storage a **kdo odpovídá za provoz**. To je vstup pro technického specialistu.
 -->
 
 ---
@@ -285,15 +274,11 @@ class: ot-slide
 
 <!--
 [CLICK]
-První krok: zákazník vyrábí pálicí stroje a podle pálicího plánu má různé profily pro různé tloušťky plechů, materiály a podmínky.  
+Tohle je **interní příklad**, ne univerzální B&R reference. Pálicí plán měl dříve podobu velkých CSV struktur, které se při startu parsovaly v PLC.
 [CLICK]
-Druhý krok: původně byla data uložena v CSV, která se při startu načítala do struktur v PLC. Při velkých souborech to mohlo trvat i v řádu minut a způsobovalo watchdogy.  
+Přechod na *MariaDB* a samostatnou BR service oddělil data od řídicí části. Cíl je **přehlednější datový model a samostatná údržba**, ne tvrzení, že container sám vyřeší celý projekt.
 [CLICK]
-Třetí krok: projekt obsahoval velké struktury, parsování CSV bylo náročné a vývojář strávil hodně času vytvářením nových datových variant.  
-[CLICK]
-Závěr: po přechodu na MariaDB a BR services se odstranily zásadní nedostatky — menší struktury v PLC, rychlejší start, přehlednější data, kratší vývojový čas a robustnější řešení.   
-[CLICK]
-Produkční takeaway: kontejnerizace zjednodušuje deployment, BR services běží v produkci na Podman a používá se konkrétní verze image, nikdy latest.
+Pro provoz je důležité *build once, deploy opakovaně*, konkrétní tag image a persistentní data. V tomto interním příkladu běží BR service na *Podmanu*; `latest` není deployment plán.
 -->
 
 ---
@@ -355,14 +340,11 @@ const useCases = {
 <div v-if="!selectedUseCase" class="ot-use-grid"><button class="ot-use-card" v-for="(useCase, key) in useCases" :key="key" @click="selectedUseCase = key"><span>{{ useCase.number }}</span><h2>{{ useCase.title }}</h2><p>{{ useCase.summary }}</p><b>OTEVŘÍT DETAIL · →</b></button></div>
 <div v-else class="ot-use-detail"><button class="ot-use-close" @click="selectedUseCase = null">← PŘEHLED MOŽNOSTÍ</button><div class="ot-use-detail-head"><span>{{ useCases[selectedUseCase].number }}</span><div><h2>{{ useCases[selectedUseCase].title }}</h2><p>{{ useCases[selectedUseCase].summary }}</p></div></div><div class="ot-use-detail-grid"><section><span>CO TO ZNAMENÁ</span><p>{{ useCases[selectedUseCase].detail }}</p></section><section><span>OBCHODNÍ HODNOTA</span><p>{{ useCases[selectedUseCase].value }}</p></section><section class="boundary"><span>NA CO POZOR</span><p>{{ useCases[selectedUseCase].boundary }}</p></section></div></div><div v-if="!selectedUseCase" class="ot-use-footer">Potenciální využití, nikoli automaticky hotové řešení.</div><div class="slide-id">12</div>
 <!--
-[CLICK]
-První krok: tohle jsou potenciální scénáře, nikoli hotová řešení; container otevírá prostor pro služby kolem PLC.
-[CLICK]
-Druhý krok: commissioning a testování mohou využít simulované protistrany a zrychlené přípravy prostředí.
-[CLICK]
-Třetí krok: centrální služba, edge integrace a analytika využívají stejný model: oddělená služba, vlastní životní cyklus a opakovatelné nasazení.
-[CLICK]
-Závěr: orchestrace přichází až ve větším měřítku, kdy potřebujeme síť, monitoring, failover a správu více instancí.
+Tento slide je **interaktivní menu**, ne lineární odhalování. Vyberte kartu podle situace zákazníka a otevřete detail; uzavírací tlačítko se vrátí do přehledu.
+
+U každého scénáře držte stejnou strukturu: co služba znamená, jaká je obchodní hodnota a na co si dát pozor. *Pauza.* Jsou to potenciální oblasti, nikoli hotová B&R řešení.
+
+Při větším počtu služeb nebo lokalit přibývá orchestrace, monitoring, síť, failover a odpovědnost za provoz. **Container sám tuto provozní vrstvu nenahradí.**
 -->
 
 ---
@@ -376,15 +358,13 @@ class: ot-slide
 <div class="ot-compliance" v-click="4"><span>JEŠTĚ PŘED DEPLOYMENTEM</span><strong>Ověřit licence runtime, image a závislostí.</strong><b>Právní, security a provozní odpovědnost nejsou vlastnost containeru.</b></div>
 <!--
 [CLICK]
-První krok: container není samostatný počítač. Potřebuje runtime, hostitelský OS, kernel a kompatibilní platformu.
+Container není samostatný počítač. Potřebuje *runtime*, hostitelský OS a kernel; zároveň závisí na CPU architektuře, paměti, storage, síti a případném speciálním hardwaru.
 [CLICK]
-Druhý krok: důležité je posoudit CPU architekturu, paměť, úložiště, síť a případné speciální hardware.
+Tady je hranice použití: **ano** pro data a integraci; **záleží** na platformě, síti a odpovědnosti; **ne** pro real-time řízení, safety, primární I/O a kritickou automatizaci. Limity CPU a paměti nejsou garancí těchto vlastností.
 [CLICK]
-Třetí krok: limity CPU a paměti mohou chránit ostatní služby, ale neřeší real-time, safety ani kritickou dostupnost.
+*Pauza.* Rozhodnutí patří technickému specialistovi: ověří runtime, hardware, síť, bezpečnost, aktualizace a **vlastníka provozu**.
 [CLICK]
-Před deploymentem patří do posouzení také licence runtime, image a závislostí. Tento krok řeší vlastník řešení se security nebo právní podporou podle konkrétního použití.
-[CLICK]
-Závěr: rozhodnutí o použití patří technickému specialistovi. Container je vhodný jen v správném rozsahu a s odpovídajícím provozním modelem.
+Ještě před deploymentem je nutné ověřit licence runtime, image a závislostí. Právní, security i provozní odpovědnost **nejsou vlastnost containeru**.
 -->
 
 ---
@@ -397,11 +377,9 @@ class: dark-slide ot-slide ot-takeaway-slide
 <div class="ot-takeaway-grid" v-click="1"><div><mdi-vector-link /><strong>Oddělení</strong><span>vlastní životní cyklus</span></div><div><mdi-update /><strong>Update</strong><span>mimo řídicí aplikaci</span></div><div><mdi-content-copy /><strong>Opakovatelnost</strong><span>stejný balíček znovu</span></div><div><mdi-shield-check-outline /><strong>Stabilita</strong><span>méně driftu prostředí</span></div></div><div class="ot-final-line" v-click="2"><span>PLC</span><b>řídí stroj</b><i>+</i><span>CONTAINER</span><b>provozuje služby okolo PLC</b></div><div class="ot-final-question" v-click="3">Pokud služba nepatří do reálného řídicího cyklu, může být container vhodná cesta.</div><div class="slide-id">14</div>
 <!--
 [CLICK]
-První krok: PLC řídí stroj a zůstává v primární odpovědnosti za deterministické řízení.
+Na závěr si vezměme čtyři hodnoty: **oddělení služby, samostatný update, opakovatelnost a méně driftu prostředí.**
 [CLICK]
-Druhý krok: container provozuje služby kolem PLC — data, integrační vrstvu, reporting, diagnostiku nebo testovací prostředí.
+*Pauza.* Hlavní věta decku: **PLC řídí stroj. Container provozuje služby okolo PLC.**
 [CLICK]
-Třetí krok: pokud služba nepatří do reálného řídicího cyklu, může být container správná cesta pro její samostatný provoz.
-[CLICK]
-Závěr: technický specialista rozhoduje o konkrétní platformě, bezpečnosti, síti a provozním modelu; obchodník pak rozpozná, kdy se to vůbec nabízí.
+Když služba nepatří do reálného řídicího cyklu, může být container správná cesta. Další krok je **technické posouzení platformy, bezpečnosti, sítě a provozního modelu.**
 -->
