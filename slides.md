@@ -67,13 +67,23 @@ Závěr: container zde není náhrada PLC, ale nástroj pro oddělení a opakova
 layout: default
 class: dark-slide ot-slide
 ---
+<script setup>
+import { ref } from 'vue'
+
+const selectedBuildFile = ref('app')
+
+const buildFiles = {
+  app: { name: 'app.py', code: 'from service import app\napp.start()' },
+  dependencies: { name: 'requirements.txt', code: 'fastapi==0.115.0\nuvicorn==0.30.6' },
+  config: { name: 'config.yml', code: 'port: 8080\nlog_level: info' }
+}
+</script>
 
 <div class="kicker">ZÁKLAD · CO JE CONTAINER</div>
 
 # Co je container?<br><span class="accent">Služba zabalená se svými závislostmi.</span>
 <div class="ot-lifecycle ot-lifecycle-clicks">
-  <div class="ot-lifecycle-stage is-build" v-click="1"><span>01 · VYTVÁŘÍM</span><b>BUILD</b><small>aplikace + závislosti + konfigurace</small><div class="ot-build-mini"><div><code class="is-active">app.py</code><code>deps.txt</code><code>config.yml</code></div><pre><code>from service import app
-app.start()</code></pre></div></div>
+  <div class="ot-lifecycle-stage is-build" v-click="1"><span>01 · VYTVÁŘÍM</span><b>BUILD</b><small>aplikace + závislosti + konfigurace</small><div class="ot-build-mini"><div role="tablist" aria-label="Soubory služby"><button v-for="(file, key) in buildFiles" :key="key" type="button" :class="{ 'is-active': selectedBuildFile === key }" :aria-selected="selectedBuildFile === key" :title="`Zobrazit ${file.name}`" @click.stop="selectedBuildFile = key"><code>{{ file.name }}</code></button></div><pre><code>{{ buildFiles[selectedBuildFile].code }}</code></pre></div></div>
   <i class="ot-lifecycle-link" v-click="1"></i>
   <div class="ot-lifecycle-stage is-image" v-click="2"><span>02 · ZABALÍM A OZNAČÍM VERZÍ</span><b>IMAGE</b><small>verzovaný balíček služby</small><div class="ot-image-tags"><div><strong>service:1.2</strong><small>starší verze</small></div><div class="is-current"><strong>service:1.4</strong><small>aktuální tag</small></div><div><strong>service:2.0</strong><small>nová verze</small></div></div></div>
   <i class="registry ot-lifecycle-link" v-click="2"><small>registry<br>Docker Hub</small></i>

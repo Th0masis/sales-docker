@@ -617,24 +617,34 @@
 }
 
 .ot-build-mini > div {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
+  display: grid;
+  gap: 6px;
 }
 
-.ot-build-mini > div code {
-  display: block;
-  padding: 5px 7px;
+.ot-build-mini > div button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 7px 9px;
+  border-left: 3px solid rgba(255, 255, 255, 0.28);
   background: rgba(0, 0, 0, 0.24) !important;
-  color: #f7dfbd;
-  font: 600 9px/1.2 'IBM Plex Mono', monospace;
-  text-align: center;
+  cursor: pointer !important;
+}
+
+.ot-build-mini > div button.is-active {
+  border-color: var(--br-orange);
+  background: rgba(255, 122, 0, 0.16) !important;
+}
+
+.ot-build-mini > div button code {
+  background: transparent !important;
+  color: #d9f6df;
+  font: 600 10px/1.2 'IBM Plex Mono', monospace;
   white-space: nowrap;
 }
 
-.ot-build-mini > div code.is-active {
-  border-top: 1px solid var(--br-orange);
-  background: rgba(255, 122, 0, 0.16) !important;
+.ot-build-mini > div button.is-active code {
   color: var(--white);
 }
 
