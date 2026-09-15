@@ -1862,9 +1862,48 @@
   font-size: 14px;
 }
 
+.ot-use-detail-map {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ot-use-map-core,
+.ot-use-detail-map > span {
+  min-width: 0;
+  padding: 10px 12px;
+  border-top: 2px solid var(--use-accent);
+  background: rgba(0, 0, 0, 0.22);
+  color: #f5f7f8;
+  font: 600 12px/1.2 'IBM Plex Mono', monospace;
+  text-align: center;
+}
+
+.ot-use-map-core {
+  text-align: left;
+  background: color-mix(in srgb, var(--use-accent) 20%, rgba(0, 0, 0, 0.34));
+}
+
+.ot-use-map-core small,
+.ot-use-map-core strong {
+  display: block;
+}
+
+.ot-use-map-core small {
+  color: var(--use-accent);
+  font: 600 9px/1.1 'IBM Plex Mono', monospace;
+}
+
+.ot-use-map-core strong {
+  margin-top: 4px;
+  color: var(--white);
+  font: 700 16px/1 'Barlow Condensed', sans-serif;
+}
+
 .ot-use-detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-top: 22px;
 }
@@ -1878,6 +1917,10 @@
 
 .ot-use-detail-grid section.boundary {
   border-color: var(--danger);
+}
+
+.ot-use-detail-grid section.example {
+  border-color: var(--use-accent);
 }
 
 .ot-use-detail-grid p {
