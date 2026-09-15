@@ -298,7 +298,8 @@ const useCases = {
     detail: 'Container může dodat dočasnou nebo opakovatelnou protistranu, která simuluje databázi, API, zařízení nebo další službu potřebnou při testu.',
     value: 'Rychlejší příprava testovacího prostředí bez ruční instalace každé závislosti.',
     boundary: 'Neřeší bezpečnostní validaci ani nenahrazuje test na reálném zařízení, pokud je pro něj potřeba.',
-    example: 'Při FAT balicí linky běží HMI proti simulované databázi v containeru, aniž by tým ručně instaloval databázi na každém testovacím PC.',
+    example: 'Při automatizovaném FAT balicí linky běží HMI proti databázi v containeru, která je strukturou a testovacími daty podobná produkci, aniž by tým ručně instaloval databázi na každém testovacím PC.',
+    role: 'testovací databáze',
     context: ['HMI', 'simulace databáze', 'FAT'],
     accent: '#3ab9d5'
   },
@@ -310,6 +311,7 @@ const useCases = {
     value: 'Jednotný deployment, verzování a aktualizace služby napříč instalacemi.',
     boundary: 'Je potřeba vyřešit izolaci zákazníků, přístupy, síť, monitoring a odpovědnost za provoz.',
     example: 'OEM provozuje stejnou reportingovou službu pro několik linek v různých závodech a sleduje verzi každé instalace.',
+    role: 'reportingová služba',
     context: ['linky', 'reportingová služba', 'závody'],
     accent: '#54ad78'
   },
@@ -321,6 +323,7 @@ const useCases = {
     value: 'Méně driftu mezi stroji a snazší rollout stejné služby.',
     boundary: 'Cílová platforma, CPU architektura, storage a síť musí být kompatibilní.',
     example: 'Po ověření image se stejná doprovodná služba nasadí na novou linku se stejnou konfigurací místo nové ruční instalace.',
+    role: 'deployment artefakt',
     context: ['image', 'konfigurace', 'nová linka'],
     accent: '#4d9bd6'
   },
@@ -332,6 +335,7 @@ const useCases = {
     value: 'Oddělení integrační vrstvy od PLC runtime a možnost samostatného update.',
     boundary: 'Nutné je posoudit síťové hranice, bezpečnost, dostupnost a latenci konkrétní komunikace.',
     example: 'Edge počítač u stroje provozuje konektor, který čte vybraná data z PLC a předává je do podnikového systému bez zásahu do řídicího cyklu.',
+    role: 'integrační vrstva',
     context: ['PLC', 'edge počítač', 'IT systém'],
     accent: '#b88d32'
   },
@@ -343,6 +347,7 @@ const useCases = {
     value: 'Analytiku lze měnit a aktualizovat bez zásahu do primárního řízení.',
     boundary: 'Data potřebují persistentní uložení, zálohování a jasně definovanou odpovědnost za výsledek analýzy.',
     example: 'Samostatná služba sbírá data o vibracích pohonu, ukládá je mimo PLC a připravuje je pro dashboard údržby.',
+    role: 'analytická služba',
     context: ['provozní data', 'analytika', 'údržba'],
     accent: '#8b6bb1'
   },
@@ -354,6 +359,7 @@ const useCases = {
     value: 'Lepší přehled o verzích, stavu služeb a rollout procesu napříč prostředími.',
     boundary: 'Není to automatická vysoká dostupnost. Je nutné navrhnout síť, přístupy, monitoring, failover a odpovědnost za provoz.',
     example: 'Integrátor spravuje několik edge služeb ve více výrobních lokalitách a potřebuje řízený rollout, monitoring i dohled nad verzemi.',
+    role: 'provozní správa',
     context: ['lokality', 'rollout', 'monitoring'],
     accent: '#d45858'
   }
@@ -364,7 +370,7 @@ const useCases = {
 
 # Kde se ještě container<br><span class="accent">hodí v OT?</span>
 <div v-if="!selectedUseCase" class="ot-use-grid"><button class="ot-use-card" v-for="(useCase, key) in useCases" :key="key" @click="selectedUseCase = key"><span>{{ useCase.number }}</span><h2>{{ useCase.title }}</h2><p>{{ useCase.summary }}</p><b>OTEVŘÍT DETAIL · →</b></button></div>
-<div v-else class="ot-use-detail" :style="{ '--use-accent': useCases[selectedUseCase].accent }"><button class="ot-use-close" @click="selectedUseCase = null">← PŘEHLED MOŽNOSTÍ</button><div class="ot-use-detail-head"><span>{{ useCases[selectedUseCase].number }}</span><div><h2>{{ useCases[selectedUseCase].title }}</h2><p>{{ useCases[selectedUseCase].summary }}</p></div></div><div class="ot-use-detail-map" aria-label="Kontext use-case"><div class="ot-use-map-core"><small>SCÉNÁŘ</small><strong>{{ useCases[selectedUseCase].title }}</strong></div><span v-for="context in useCases[selectedUseCase].context" :key="context">{{ context }}</span></div><div class="ot-use-detail-grid"><section><span>CO TO ZNAMENÁ</span><p>{{ useCases[selectedUseCase].detail }}</p></section><section class="example"><span>PRAKTICKÝ PŘÍKLAD</span><p>{{ useCases[selectedUseCase].example }}</p></section><section><span>OBCHODNÍ HODNOTA</span><p>{{ useCases[selectedUseCase].value }}</p></section><section class="boundary"><span>NA CO POZOR</span><p>{{ useCases[selectedUseCase].boundary }}</p></section></div></div><div v-if="!selectedUseCase" class="ot-use-footer">Potenciální využití, nikoli automaticky hotové řešení.</div><div class="slide-id">12</div>
+<div v-else class="ot-use-detail" :style="{ '--use-accent': useCases[selectedUseCase].accent }"><button class="ot-use-close" @click="selectedUseCase = null">← PŘEHLED MOŽNOSTÍ</button><div class="ot-use-detail-head"><span>{{ useCases[selectedUseCase].number }}</span><div><h2>{{ useCases[selectedUseCase].title }}</h2><p>{{ useCases[selectedUseCase].summary }}</p></div></div><div class="ot-use-detail-map" aria-label="Kontext use-case"><div class="ot-use-map-core"><small>ROLE SLUŽBY</small><strong>{{ useCases[selectedUseCase].role }}</strong></div><span v-for="context in useCases[selectedUseCase].context" :key="context">{{ context }}</span></div><div class="ot-use-detail-grid"><section><span>CO TO ZNAMENÁ</span><p>{{ useCases[selectedUseCase].detail }}</p></section><section class="example"><span>PRAKTICKÝ PŘÍKLAD</span><p>{{ useCases[selectedUseCase].example }}</p></section><section><span>OBCHODNÍ HODNOTA</span><p>{{ useCases[selectedUseCase].value }}</p></section><section class="boundary"><span>NA CO POZOR</span><p>{{ useCases[selectedUseCase].boundary }}</p></section></div></div><div v-if="!selectedUseCase" class="ot-use-footer">Potenciální využití, nikoli automaticky hotové řešení.</div><div class="slide-id">12</div>
 <!--
 Tento slide je **interaktivní menu se šesti scénáři**, ne lineární odhalování. Vyberte kartu podle situace zákazníka a otevřete detail; uzavírací tlačítko se vrátí do přehledu.
 
