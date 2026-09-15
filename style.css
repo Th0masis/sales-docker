@@ -1249,20 +1249,20 @@
 }
 
 .ot-runtime-lifecycle {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   align-items: center;
   gap: 8px;
   margin-top: 22px;
-  overflow: hidden;
 }
 
 .ot-runtime-lifecycle span {
   display: grid;
-  flex: 0 0 auto;
   gap: 3px;
   padding: 7px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  color: #f5f7f8;
+  border-top: 2px solid var(--br-orange);
+  background: var(--paper);
+  color: var(--ink);
   font: 700 11px/1 'IBM Plex Mono', monospace;
 }
 
@@ -1271,19 +1271,12 @@
   font: 600 9px/1 'IBM Plex Mono', monospace;
 }
 
-.ot-runtime-lifecycle i {
-  flex: 1 1 12px;
-  min-width: 8px;
-  height: 1px;
-  background: var(--br-orange);
-}
-
 .ot-command-demo {
   display: grid;
   grid-template-columns: 235px 1fr;
   gap: 28px;
   align-items: stretch;
-  margin-top: 30px;
+  margin-top: 18px;
 }
 
 .ot-command-steps {
@@ -1296,8 +1289,8 @@
   grid-template-columns: 32px 1fr;
   column-gap: 10px;
   row-gap: 4px;
-  min-height: 62px;
-  padding: 11px 0;
+  min-height: 48px;
+  padding: 7px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1317,7 +1310,7 @@
 }
 
 .ot-command-terminal {
-  min-height: 300px;
+  min-height: 0;
   border: 1px solid #56636b;
   background: #0b1012;
   color: #d9f6df;
@@ -1329,7 +1322,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 13px 16px;
+  padding: 9px 14px;
   border-bottom: 1px solid #30363b;
   color: #8a969d;
   font-size: 10px;
@@ -1348,7 +1341,7 @@
 .ot-command-log {
   display: grid;
   gap: 0;
-  padding: 10px 18px 14px;
+  padding: 4px 12px 6px;
   background: #0b1115;
 }
 
@@ -1357,7 +1350,7 @@
   grid-template-columns: 18px minmax(0, 1fr);
   gap: 8px;
   align-items: start;
-  padding: 10px 6px;
+  padding: 5px 4px;
   border-bottom: 1px solid rgba(120, 141, 149, 0.22);
 }
 
@@ -1371,7 +1364,7 @@
 
 .ot-command-cell {
   display: grid;
-  gap: 6px;
+  gap: 3px;
   min-width: 0;
 }
 
@@ -1380,8 +1373,8 @@
   background: #000000 !important;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
-  padding: 7px 9px !important;
-  font-size: 12px !important;
+  padding: 4px 6px !important;
+  font-size: 10px !important;
   font-weight: 700;
   letter-spacing: 0.01em;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
@@ -1389,7 +1382,7 @@
 
 .ot-command-log strong {
   color: #dce9ef;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.03em;
 }
@@ -1404,52 +1397,50 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 6px;
+  height: 15px;
+  border: 0;
+  border-radius: 0;
   background: #20282d;
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
 }
 
 .ot-download-progress::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: none;
+  display: none;
 }
 
 .ot-download-bar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  display: block;
-  min-width: 12%;
-  border-radius: 6px 0 0 6px;
-  background: linear-gradient(90deg, #d85f00 0%, var(--br-orange) 100%);
-  box-shadow: inset -1px 0 0 rgba(255,255,255,0.34), 0 0 8px rgba(255,122,0,0.28);
-  animation: consoleProgressFill 2.8s ease-in-out forwards;
+  display: none;
 }
 
 .ot-download-hash {
   position: relative;
   z-index: 1;
-  display: inline-flex;
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
   align-items: center;
-  padding-left: 8px;
-  color: rgba(255,255,255,0.92);
-  font: 700 10px/1 'IBM Plex Mono', monospace;
-  letter-spacing: 2px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  padding-left: 6px;
+  color: transparent;
+  font-size: 0;
   white-space: nowrap;
+}
+
+.ot-download-hash::after {
+  display: block;
+  width: max-content;
+  color: #d9f6df;
+  content: '################################################################################################';
+  font: 700 9px/15px 'IBM Plex Mono', monospace;
+  letter-spacing: 1px;
+  animation: consoleHashReveal 2.8s steps(28, end) forwards;
 }
 
 .ot-download-value {
   position: relative;
   z-index: 1;
   margin-left: auto;
-  padding-right: 8px;
+  padding-right: 6px;
   color: #f8fbff;
   font: 700 9px/1 'IBM Plex Mono', monospace;
   letter-spacing: 0.08em;
@@ -1463,6 +1454,11 @@
 @keyframes consoleProgressFill {
   0% { width: 0%; }
   100% { width: 100%; }
+}
+
+@keyframes consoleHashReveal {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
 }
 
 .ot-command-terminal footer {
