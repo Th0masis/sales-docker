@@ -1,6 +1,6 @@
 # Container v průmyslové automatizaci
 
-Slidev deck pro B&R sales a pre-sales. Dvanáct slidů vysvětluje, kdy mají containery smysl pro služby kolem PLC, jak se liší image, container a runtime, a co je potřeba ověřit před nasazením.
+Slidev deck pro B&R sales a pre-sales. Aktuální zdrojová prezentace má 11 slidů a zaměřuje se na obchodní rozpoznání, kdy má kontejner v OT smysl, a kdy je potřeba přizvat technického specialistu.
 
 ## Spuštění
 
@@ -19,29 +19,25 @@ npm run build
 
 Statický výstup se zapisuje do `dist/`.
 
-## Export
-
-```powershell
-npm run export
-```
-
-Export vyžaduje dostupný Playwright Chromium browser.
-
 ## Obsah decku
 
-- Slide 02 odděluje PLC řízení stroje od služeb kolem PLC.
-- Slide 03 ukazuje build, image a deploy containeru; kódový blok je ilustrační interní ukázka.
-- Slide 06 je interaktivní simulace příkazové řádky s obecným příkladem `nginx`.
-- Slide 08 je označený interní produkční příklad mappDatabase / BR service, MariaDB, Podmanu a persistentních dat. Není to univerzální reference ani garance úspor.
-- Slide 09 obsahuje interaktivní use-cases včetně orchestrace / multi-site.
-- Slide 10 slouží jako kvalifikační a rozhodovací rámec pro technické posouzení.
-- Slide 11 připomíná kontrolu licencí runtime, image, závislostí a provozní odpovědnosti.
+- Slide 01: titul a hlavní teze.
+- Slide 02: kontext a obchodní otázka: kdy je služba vedle PLC a kdy patří do PLC runtime.
+- Slide 03: základní definice containeru: build → image → deploy.
+- Slide 04: standardní instalace vs. container.
+- Slide 05: container vs. VM.
+- Slide 06: command demonstrator pro obecný Docker princip.
+- Slide 07: kde dává container v OT smysl.
+- Slide 08: interní produkční příklad mappDatabase / MariaDB / BR services.
+- Slide 09: potenciální use-cases a hranice relevancy.
+- Slide 10: technické limity a rozhodovací rámec.
+- Slide 11: závěrečné shrnutí a obchodní zkratka.
 
 `slides.md` je zdroj pravdy pro pořadí, texty, presenter notes a click states. `style.css` obsahuje vizuální systém decku a `public/` jeho diagramy a obrázky.
 
 ## Ověření před použitím
 
 - spustit produkční build přes `npm run build`;
-- projít click states slidu 03 a interaktivní karty slidu 09;
-- ověřit konkrétní runtime, image tagy, persistentní storage, zálohy, licence a odpovědnost podle cílového projektu;
-- nepředstavovat interní case study nebo obecný Docker příklad jako schválenou B&R referenci.
+- ověřit hlavní business story a vztah PLC vs. služby kolem PLC;
+- ověřit, že obecný Docker příklad není prezentován jako oficiální B&R reference;
+- ověřit interní case study a limity před použitím v konkrétním projektu.

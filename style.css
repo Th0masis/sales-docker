@@ -21,15 +21,6 @@
   box-sizing: border-box;
 }
 
-/* Keep presentation controls limited to navigation and playback. */
-button[title='Show editor'],
-button[title='Hide editor'],
-button[title='Record video'],
-button[title='Stop recording'],
-button:has([class~='i-carbon:user-avatar']) {
-  display: none !important;
-}
-
 .slidev-layout {
   position: relative;
   overflow: hidden;
@@ -268,8 +259,7 @@ button:has([class~='i-carbon:user-avatar']) {
 .ot-stack-callout,
 .ot-disclaimer,
 .ot-use-footer,
-.ot-final-question,
-.ot-anatomy-note {
+.ot-final-question {
   margin-top: 20px;
   padding: 15px 18px;
   border-left: 4px solid var(--br-orange);
@@ -307,15 +297,6 @@ button:has([class~='i-carbon:user-avatar']) {
 .dark-slide .ot-compare-card small,
 .dark-slide .ot-limit-grid strong,
 .dark-slide .ot-takeaway-grid span {
-  color: #c7cdd1;
-}
-
-.dark-slide .ot-lifecycle small,
-.dark-slide .ot-note-row,
-.dark-slide .ot-walkthrough-note,
-.dark-slide .ot-before-after small,
-.dark-slide .ot-disclaimer,
-.dark-slide .ot-use-footer {
   color: #c7cdd1;
 }
 
@@ -377,7 +358,8 @@ button:has([class~='i-carbon:user-avatar']) {
   display: grid;
   grid-template-columns: 1fr;
   gap: 6px;
-  margin-top: 16px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .ot-build-tab {
@@ -419,15 +401,23 @@ button:has([class~='i-carbon:user-avatar']) {
 .ot-build-code,
 .ot-image-tag,
 .ot-running-pill {
-  margin-top: 18px;
-  padding: 10px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(0, 0, 0, 0.24);
+  margin-top: 14px;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
 }
 
 .ot-build-code {
-  height: 76px;
-  overflow: hidden;
+  width: 100%;
+  margin-top: 24px;
+  min-height: 76px;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.ot-lifecycle-stage.is-image > small {
+  display: block;
+  width: 100%;
 }
 
 .ot-build-code > span,
@@ -450,12 +440,14 @@ button:has([class~='i-carbon:user-avatar']) {
 }
 
 .ot-build-code code {
-  padding: 9px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  padding: 7px 8px;
+  border-left: 2px solid var(--br-orange);
   overflow-wrap: anywhere;
   word-break: break-word;
-  font-size: 9px;
+  font-size: 10px !important;
   line-height: 1.25;
+  background: rgba(0, 0, 0, 0.22) !important;
 }
 
 .ot-image-tag small,
@@ -500,14 +492,26 @@ button:has([class~='i-carbon:user-avatar']) {
   font-size: 10px;
 }
 
-.ot-deploy-buttons {
+.ot-deploy-animation {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  align-items: start;
+  gap: 12px;
   margin-top: 25px;
 }
 
-.ot-deploy-buttons > div {
+.ot-deploy-column {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+}
+
+.ot-deploy-column + .ot-deploy-column {
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.ot-deploy-action {
   display: grid;
   min-height: 52px;
   place-items: center;
@@ -516,25 +520,17 @@ button:has([class~='i-carbon:user-avatar']) {
   background: rgba(255, 122, 0, 0.12);
 }
 
-.ot-deploy-buttons span {
+.ot-deploy-action span {
   color: var(--br-orange);
   font: 700 18px/1 'IBM Plex Mono', monospace;
-}
-
-.ot-deploy-animation {
-  display: grid;
-  grid-template-columns: 1fr 22px 1fr;
-  align-items: center;
-  gap: 6px;
-  margin-top: 18px;
 }
 
 .ot-deploy-source,
 .ot-deploy-target {
   min-width: 0;
-  padding: 7px 6px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(0, 0, 0, 0.24);
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  background: transparent;
 }
 
 .ot-deploy-source span,
@@ -556,50 +552,7 @@ button:has([class~='i-carbon:user-avatar']) {
 }
 
 .ot-deploy-animation > i {
-  position: relative;
-  height: 2px;
-  background: var(--br-orange);
-}
-
-.ot-deploy-animation > i::after {
-  position: absolute;
-  top: -4px;
-  right: 0;
-  content: '';
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 7px solid var(--br-orange);
-}
-
-.ot-daemon-rail {
-  margin-top: 12px;
-  padding: 7px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(0, 0, 0, 0.24);
-}
-
-.ot-daemon-rail span,
-.ot-daemon-rail strong,
-.ot-daemon-rail small {
-  display: block;
-}
-
-.ot-daemon-rail span {
-  color: var(--br-orange);
-  font: 600 8px/1.2 'IBM Plex Mono', monospace;
-}
-
-.ot-daemon-rail strong {
-  margin-top: 4px;
-  color: #d9f6df;
-  font: 10px/1.2 'IBM Plex Mono', monospace;
-}
-
-.ot-daemon-rail small {
-  margin-top: 4px;
-  color: #c7cdd1;
-  font-size: 9px;
-  line-height: 1.2;
+  display: none;
 }
 
 .ot-deploy-source {
@@ -667,6 +620,14 @@ button:has([class~='i-carbon:user-avatar']) {
   line-height: 1.35;
 }
 
+.dark-slide .ot-lifecycle small {
+  color: #d9e0e3;
+}
+
+.dark-slide .ot-note-row {
+  color: #d9e0e3;
+}
+
 .ot-db-bottom span {
   color: var(--steel);
   font-size: 13px;
@@ -703,48 +664,6 @@ button:has([class~='i-carbon:user-avatar']) {
 
 .ot-definition strong {
   margin: 0;
-}
-
-.ot-architecture-foot {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.ot-architecture-foot .ot-definition {
-  display: block;
-  margin-top: 0;
-  padding: 12px 14px;
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-.ot-architecture-foot .ot-definition span {
-  display: block;
-  margin-top: 7px;
-}
-
-.ot-source-quote {
-  margin: 0;
-  padding: 12px 14px;
-  border-left: 4px solid var(--br-orange);
-  color: #e1e7e9;
-  background: rgba(255, 255, 255, 0.07);
-  font-size: 11px;
-  line-height: 1.3;
-}
-
-.ot-source-quote p {
-  margin: 0;
-}
-
-.ot-source-quote cite {
-  display: block;
-  margin-top: 7px;
-  color: #c7cdd1;
-  font-size: 9px;
-  font-style: normal;
 }
 
 .ot-note-row,
@@ -908,86 +827,6 @@ button:has([class~='i-carbon:user-avatar']) {
   background: transparent;
 }
 
-.ot-stack-tabs {
-  display: flex;
-  gap: 8px;
-  margin-top: 22px;
-}
-
-.ot-stack-tabs button {
-  appearance: none;
-  padding: 8px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-  color: #c7cdd1;
-  background: rgba(255, 255, 255, 0.05);
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-  cursor: pointer;
-}
-
-.ot-stack-tabs button.active,
-.ot-stack-tabs button:focus-visible {
-  border-color: var(--br-orange);
-  color: var(--white);
-  background: rgba(255, 122, 0, 0.14);
-  outline: none;
-}
-
-.ot-stack-panel {
-  min-height: 388px;
-}
-
-.ot-stack-decision {
-  margin-top: 30px;
-}
-
-.ot-stack-decision-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.ot-stack-decision-grid section {
-  min-height: 126px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-top: 4px solid var(--br-orange);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.ot-stack-decision-grid span {
-  color: var(--br-orange);
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-}
-
-.ot-stack-decision-grid strong,
-.ot-stack-decision-grid small {
-  display: block;
-}
-
-.ot-stack-decision-grid strong {
-  margin-top: 14px;
-  color: var(--white);
-  font-size: 18px;
-}
-
-.ot-stack-decision-grid small {
-  margin-top: 6px;
-  color: #c7cdd1;
-  font-size: 11px;
-  line-height: 1.25;
-}
-
-.ot-stack-decision-boundary {
-  margin-top: 16px;
-  padding: 14px 16px;
-  border-left: 4px solid var(--br-orange);
-  color: #e1e7e9;
-  background: rgba(255, 122, 0, 0.1);
-  font-size: 15px;
-  line-height: 1.3;
-}
-
 .ot-stacks section {
   padding: 18px;
   background: rgba(255, 255, 255, 0.05);
@@ -1030,177 +869,19 @@ button:has([class~='i-carbon:user-avatar']) {
 }
 
 .ot-stack-axes span {
-  display: grid;
-  gap: 5px;
-  min-height: 58px;
-  align-content: center;
   padding: 10px 12px;
   border: 1px solid rgba(255, 255, 255, 0.24);
-  color: #c7cdd1;
-  font: 500 11px/1.2 'IBM Plex Mono', monospace;
+  color: var(--br-orange);
+  font: 600 10px/1.2 'IBM Plex Mono', monospace;
   text-align: center;
-}
-
-.ot-stack-axes b {
-  color: var(--br-orange);
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-}
-
-.ot-stack-axes strong {
-  color: var(--white);
-  font-size: 13px;
-}
-
-.ot-stack-axes small {
-  color: #c7cdd1;
-  font-size: 10px;
-}
-
-.ot-anatomy {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) 28px minmax(0, 1fr) 28px minmax(0, 1.2fr);
-  align-items: center;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.ot-anatomy-node {
-  min-height: 178px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-top: 5px solid var(--br-orange);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.ot-anatomy-node.host {
-  border-top-color: #8b969e;
-}
-
-.ot-anatomy-node.runtime {
-  border-top-color: var(--br-orange);
-}
-
-.ot-anatomy-node.container {
-  border-top-color: var(--flow-green);
-}
-
-.ot-anatomy-node > span,
-.ot-anatomy-support span {
-  color: var(--br-orange);
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-  text-transform: uppercase;
-}
-
-.ot-anatomy-node strong {
-  display: block;
-  margin: 22px 0 8px;
-  color: var(--white);
-  font-size: 22px;
-  line-height: 1.05;
-}
-
-.ot-anatomy-node small,
-.ot-anatomy-support small {
-  color: #c7cdd1;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-.ot-anatomy-arrow {
-  position: relative;
-  height: 2px;
-  background: var(--br-orange);
-}
-
-.ot-anatomy-arrow::after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 0;
-  height: 0;
-  content: '';
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid var(--br-orange);
-  transform: translateY(-50%);
-}
-
-.ot-anatomy-layers {
-  display: grid;
-  gap: 5px;
-  margin-top: 14px;
-}
-
-.ot-anatomy-layers div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 7px 9px;
-  border-left: 3px solid var(--flow-green);
-  background: rgba(0, 0, 0, 0.24);
-}
-
-.ot-anatomy-layers b {
-  color: #d9f6df;
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-}
-
-.ot-anatomy-layers small {
-  color: #c7cdd1;
-  font-size: 10px;
-}
-
-.ot-anatomy-support {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.ot-anatomy-support article {
-  min-height: 80px;
-  padding: 12px 14px;
-  border-top: 3px solid rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.ot-anatomy-support article:nth-child(2) {
-  border-top-color: var(--flow-blue);
-}
-
-.ot-anatomy-support article:nth-child(3) {
-  border-top-color: var(--flow-amber);
-}
-
-.ot-anatomy-support strong,
-.ot-anatomy-support small {
-  display: block;
-}
-
-.ot-anatomy-support strong {
-  margin: 8px 0 4px;
-  color: var(--white);
-  font-size: 15px;
-}
-
-.ot-anatomy-note strong {
-  color: var(--br-orange);
-  font: 600 10px/1.2 'IBM Plex Mono', monospace;
-  text-transform: uppercase;
-}
-
-.ot-anatomy-note span {
-  margin-left: 12px;
-  color: #f3f5f4;
 }
 
 .ot-command-demo {
   display: grid;
-  grid-template-columns: 205px 1fr;
-  gap: 20px;
+  grid-template-columns: 235px 1fr;
+  gap: 28px;
   align-items: stretch;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .ot-command-steps {
@@ -1210,17 +891,12 @@ button:has([class~='i-carbon:user-avatar']) {
 
 .ot-command-steps > div {
   display: grid;
-  grid-template-columns: 28px 1fr;
-  column-gap: 8px;
-  row-gap: 2px;
-  min-height: 31px;
-  padding: 3px 0;
+  grid-template-columns: 32px 1fr;
+  column-gap: 10px;
+  row-gap: 4px;
+  min-height: 62px;
+  padding: 11px 0;
   border-bottom: 1px solid var(--line);
-}
-
-.ot-command-steps > div.slidev-vclick-hidden,
-.ot-command-row.slidev-vclick-hidden {
-  display: none;
 }
 
 .ot-command-steps b {
@@ -1230,16 +906,16 @@ button:has([class~='i-carbon:user-avatar']) {
 }
 
 .ot-command-steps strong {
-  font: 700 12px/1.1 'IBM Plex Mono', monospace;
+  font: 700 14px/1.1 'IBM Plex Mono', monospace;
 }
 
 .ot-command-steps small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .ot-command-terminal {
-  min-height: 0;
+  min-height: 300px;
   border: 1px solid #56636b;
   background: #0b1012;
   color: #d9f6df;
@@ -1251,7 +927,7 @@ button:has([class~='i-carbon:user-avatar']) {
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 10px 14px;
+  padding: 13px 16px;
   border-bottom: 1px solid #30363b;
   color: #8a969d;
   font-size: 10px;
@@ -1270,16 +946,16 @@ button:has([class~='i-carbon:user-avatar']) {
 .ot-command-log {
   display: grid;
   gap: 0;
-  padding: 4px 10px 5px;
+  padding: 10px 18px 14px;
   background: #0b1115;
 }
 
 .ot-command-row {
   display: grid;
   grid-template-columns: 18px minmax(0, 1fr);
-  gap: 6px;
+  gap: 8px;
   align-items: start;
-  padding: 4px 4px;
+  padding: 10px 6px;
   border-bottom: 1px solid rgba(120, 141, 149, 0.22);
 }
 
@@ -1293,112 +969,102 @@ button:has([class~='i-carbon:user-avatar']) {
 
 .ot-command-cell {
   display: grid;
-  gap: 2px;
+  gap: 6px;
   min-width: 0;
 }
 
-.slidev-layout .ot-command-log code {
-  color: #edf3f6;
-  background: #000000;
+.ot-command-log code {
+  color: #edf3f6 !important;
+  background: #000000 !important;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
-  padding: 4px 6px;
-  font-size: 10px;
-  line-height: 1.15;
-  overflow-wrap: anywhere;
+  padding: 7px 9px !important;
+  font-size: 12px !important;
   font-weight: 700;
   letter-spacing: 0.01em;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
 .ot-command-log strong {
-  color: #8fe7ad;
+  color: #dce9ef;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.03em;
 }
 
-@property --download-percent {
-  syntax: '<integer>';
-  inherits: false;
-  initial-value: 0;
+.ot-command-row.is-pulling .ot-command-cell strong:last-child,
+.ot-command-row:nth-of-type(3) .ot-command-cell strong:first-of-type {
+  color: #8ee0a8;
 }
 
 .ot-download-progress {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
   width: 100%;
-  height: 14px;
+  height: 18px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 6px;
-  background: #000000;
+  background: #20282d;
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
 }
 
 .ot-download-progress::before {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none;
+}
+
+.ot-download-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  min-width: 12%;
+  border-radius: 6px 0 0 6px;
+  background: linear-gradient(90deg, #d85f00 0%, var(--br-orange) 100%);
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.34), 0 0 8px rgba(255,122,0,0.28);
+  animation: consoleProgressFill 2.8s ease-in-out forwards;
 }
 
 .ot-download-hash {
-  display: block;
-  width: 0;
-  max-width: 100%;
-  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
   padding-left: 8px;
   color: rgba(255,255,255,0.92);
   font: 700 10px/1 'IBM Plex Mono', monospace;
   letter-spacing: 2px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
   white-space: nowrap;
-  animation: none;
 }
 
 .ot-download-value {
-  margin-left: 0;
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
   padding-right: 8px;
   color: #f8fbff;
   font: 700 9px/1 'IBM Plex Mono', monospace;
-  font-size: 0;
   letter-spacing: 0.08em;
-  counter-reset: download-percent var(--download-percent);
-  animation: none;
 }
 
-.ot-command-row.is-pulling.slidev-vclick-current .ot-download-hash {
-  animation: consoleProgressHash 5s linear forwards;
+@keyframes consoleProgressGlow {
+  0% { filter: brightness(0.9) saturate(0.9); }
+  100% { filter: brightness(1.15) saturate(1.15); }
 }
 
-.ot-command-row.is-pulling.slidev-vclick-current .ot-download-value {
-  animation: consoleProgressPercent 5s linear forwards;
-}
-
-.ot-command-row.is-pulling.slidev-vclick-prior .ot-download-hash {
-  width: 100%;
-}
-
-.ot-command-row.is-pulling.slidev-vclick-prior .ot-download-value {
-  --download-percent: 100;
-}
-
-.ot-download-value::after {
-  content: counter(download-percent) '%';
-  font-size: 9px;
-}
-
-@keyframes consoleProgressHash {
+@keyframes consoleProgressFill {
   0% { width: 0%; }
   100% { width: 100%; }
 }
 
-@keyframes consoleProgressPercent {
-  0% { --download-percent: 0; }
-  100% { --download-percent: 100; }
-}
-
 .ot-command-terminal footer {
-  padding: 7px 14px;
+  padding: 10px 16px;
   border-top: 1px solid #30363b;
   color: #68767d;
   font-size: 9px;
@@ -1423,7 +1089,7 @@ button:has([class~='i-carbon:user-avatar']) {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  margin: 8px 0 0 225px;
+  margin: 12px 0 0 263px;
   color: var(--steel);
   font: 600 10px/1.2 'IBM Plex Mono', monospace;
 }
@@ -1540,12 +1206,10 @@ button:has([class~='i-carbon:user-avatar']) {
   font: 700 18px/1 'IBM Plex Mono', monospace;
 }
 
-.dark-slide .ot-before-after .ot-package small {
+.ot-package small {
   margin-top: 5px;
-  color: var(--ink);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.2;
+  color: var(--white);
+  font-size: 10px;
 }
 
 .ot-benefit-grid,
@@ -1589,10 +1253,6 @@ button:has([class~='i-carbon:user-avatar']) {
 
 .ot-benefit-grid small {
   color: var(--muted);
-}
-
-.dark-slide .ot-benefit-grid small {
-  color: #c7cdd1;
 }
 
 .ot-disclaimer,
@@ -1828,40 +1488,6 @@ button:has([class~='i-carbon:user-avatar']) {
   border-color: var(--danger);
 }
 
-.ot-license-grid {
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 28px;
-}
-
-.ot-license-grid article {
-  min-height: 164px;
-}
-
-.ot-license-grid p {
-  margin: 12px 0 0;
-  color: #c7cdd1;
-  font-size: 12px;
-  line-height: 1.35;
-}
-
-.ot-license-checks {
-  margin-top: 14px;
-}
-
-.dark-slide .ot-license-checks > div {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.dark-slide .ot-license-checks b {
-  color: var(--white);
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.ot-license-checks b {
-  font-size: 12px;
-}
-
 .ot-limit-grid strong {
   display: block;
   margin-top: 20px;
@@ -2019,8 +1645,7 @@ button:has([class~='i-carbon:user-avatar']) {
 
   .ot-link,
   .ot-lifecycle > i:not(.registry),
-  .ot-run-arrow,
-  .ot-anatomy-arrow {
+  .ot-run-arrow {
     display: none;
   }
 
@@ -2030,8 +1655,6 @@ button:has([class~='i-carbon:user-avatar']) {
   .ot-stacks,
   .ot-stack-diagrams,
   .ot-db-compare,
-  .ot-anatomy,
-  .ot-anatomy-support,
   .ot-limit-grid,
   .ot-takeaway-grid,
   .ot-yes-no {
