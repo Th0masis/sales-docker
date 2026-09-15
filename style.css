@@ -1273,24 +1273,24 @@
 
 .ot-command-demo {
   display: grid;
-  grid-template-columns: 235px 1fr;
-  gap: 28px;
+  grid-template-columns: 210px 1fr;
+  gap: 24px;
   align-items: stretch;
-  margin-top: 18px;
+  margin-top: 24px;
 }
 
 .ot-command-steps {
   display: grid;
-  align-content: center;
+  align-content: start;
 }
 
 .ot-command-steps > div {
   display: grid;
-  grid-template-columns: 32px 1fr;
-  column-gap: 10px;
-  row-gap: 4px;
-  min-height: 48px;
-  padding: 7px 0;
+  grid-template-columns: 26px 1fr;
+  column-gap: 8px;
+  row-gap: 2px;
+  min-height: 37px;
+  padding: 5px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1301,12 +1301,12 @@
 }
 
 .ot-command-steps strong {
-  font: 700 14px/1.1 'IBM Plex Mono', monospace;
+  font: 700 12px/1.1 'IBM Plex Mono', monospace;
 }
 
 .ot-command-steps small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .ot-command-terminal {
@@ -1337,6 +1337,20 @@
 
 .ot-command-terminal header i:first-child { background: var(--br-orange); }
 .ot-command-terminal header span { margin-left: auto; color: var(--br-orange); font-size: 9px; }
+
+.ot-command-terminal header a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #d9f6df;
+  font: 600 9px/1 'IBM Plex Mono', monospace;
+  text-decoration: none;
+}
+
+.ot-command-terminal header a svg {
+  width: 10px;
+  height: 10px;
+}
 
 .ot-command-log {
   display: grid;
@@ -1433,7 +1447,15 @@
   content: '################################################################################################';
   font: 700 9px/15px 'IBM Plex Mono', monospace;
   letter-spacing: 1px;
-  animation: consoleHashReveal 2.8s steps(28, end) forwards;
+  clip-path: inset(0 100% 0 0);
+}
+
+.ot-command-row.is-pulling.slidev-vclick-current .ot-download-hash::after {
+  animation: consoleHashReveal 1.4s steps(28, end) forwards;
+}
+
+.ot-command-row.is-pulling.slidev-vclick-prior .ot-download-hash::after {
+  clip-path: inset(0 0 0 0);
 }
 
 .ot-download-value {
@@ -1457,8 +1479,8 @@
 }
 
 @keyframes consoleHashReveal {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0); }
+  0% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
 }
 
 .ot-command-terminal footer {
