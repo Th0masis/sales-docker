@@ -335,6 +335,11 @@
   min-width: 0;
 }
 
+.ot-lifecycle-clicks .ot-lifecycle-stage.is-build {
+  display: flex;
+  flex-direction: column;
+}
+
 .ot-lifecycle-clicks > i {
   position: relative;
   flex: 0 0 28px;
@@ -613,6 +618,9 @@
 }
 
 .ot-build-mini {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   margin-top: 22px;
 }
 
@@ -649,7 +657,7 @@
 }
 
 .ot-build-mini pre {
-  margin: 0;
+  margin-top: auto;
   padding: 7px 9px;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(0, 0, 0, 0.3);
