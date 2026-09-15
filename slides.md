@@ -330,13 +330,13 @@ const useCases = {
   edge: {
     number: '04',
     title: 'Edge service',
-    summary: 'Propojení IT/OT, B&R IIoT Connector nebo vlastní řešení.',
-    detail: 'Container může hostovat doprovodnou službu mezi PLC a IT světem: gateway, konektor, lokální API nebo předzpracování dat.',
-    value: 'Oddělení integrační vrstvy od PLC runtime a možnost samostatného update.',
+    summary: 'B&R IIoT Connector pro dávky, energii a OEE do MES nebo cloudu.',
+    detail: 'Container na edge zařízení může provozovat B&R IIoT Connector jako integrační vrstvu mezi PLC a IT: vyčte vybraná provozní data, lokálně je připraví a předá je do MES nebo cloudu.',
+    value: 'Oddělení integrační vrstvy od PLC runtime a jednotný způsob předání výrobních dat, energií a OEE.',
     boundary: 'Nutné je posoudit síťové hranice, bezpečnost, dostupnost a latenci konkrétní komunikace.',
-    example: 'OEM dodá ke stroji edge PC s containerem konektoru. Konektor čte vybraná data z PLC a předává je do MES nebo ERP, aniž by zasahoval do řídicího cyklu PLC.',
+    example: 'Na edge PC u plnicí linky běží B&R IIoT Connector v containeru. Z PLC předá výrobní dávky, spotřebu energie a OEE do centrálního MES nebo cloudu, aniž by zasahoval do řídicího cyklu PLC.',
     role: 'integrační vrstva',
-    context: ['PLC', 'edge počítač', 'IT systém'],
+    context: ['PLC', 'B&R IIoT Connector', 'MES / cloud'],
     accent: '#b88d32'
   },
   predictive: {
@@ -382,7 +382,7 @@ V detailu je stejná osnova: barevná mapa ukazuje roli služby a její kontext;
 
 **03 Škálování - container jako deployment artefakt.** Význam je opakovat stejné ověřené nasazení, ne ručně znovu skládat prostředí. OEM při automatickém oživování nové linky stáhne ověřený container s doprovodnou službou a nasadí jej se stejnou konfigurací; technik ověří kompatibilitu CPU, hostitele, storage a sítě.
 
-**04 Edge service - container jako integrační vrstva.** Význam je oddělit propojení IT/OT od PLC runtime. V příkladu edge počítač u stroje provozuje konektor, který předává vybraná data z PLC do IT systému, aniž by zasahoval do řídicího cyklu.
+**04 Edge service - container jako integrační vrstva.** Význam je oddělit propojení IT/OT od PLC runtime. V příkladu běží na edge PC u plnicí linky B&R IIoT Connector v containeru a předává výrobní dávky, spotřebu energie a OEE z PLC do centrálního MES nebo cloudu, aniž by zasahoval do řídicího cyklu.
 
 **05 Prediktivní údržba - container jako analytická služba.** Význam je měnit sběr a analýzu dat nezávisle na řízení stroje. V příkladu služba zpracuje vibrace pohonu, ukládá je mimo PLC a připraví je pro dashboard údržby; vyžaduje persistentní data, zálohy a vlastníka výsledku analýzy.
 
