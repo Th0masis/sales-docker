@@ -155,11 +155,11 @@ class: dark-slide ot-slide
 <div class="kicker">VRSTVY · CONTAINER VS VM</div>
 
 # Kterou vrstvu skutečně<br><span class="accent">potřebujeme izolovat?</span>
-<div class="ot-stack-diagrams" v-click="1"><figure><figcaption>VM · VLASTNÍ GUEST OS</figcaption><img src="/virtual-machine-diagram.svg" alt="Vrstvy virtuálního stroje"></figure><figure><figcaption>CONTAINER · SDÍLENÝ HOST OS</figcaption><img src="/container-diagram.svg" alt="Vrstvy containeru"></figure></div><div class="ot-stack-callout" v-click="2"><b>Klíčový rozdíl:</b> container nemá vlastní Guest OS ani vlastní kernel. Sdílí kernel hostitelského systému.<br><small>VM virtualizuje celé prostředí; container izoluje proces, filesystem a závislosti. Pro obchodníka je důležité vědět, že runtime = Docker daemon / Engine, container = běžící instance image, a host OS zůstává společný.</small></div><div class="ot-stack-axes" v-click="3"><span>IZOLACE PROSTŘEDÍ</span><span>STARTUP</span><span>NÁROKY NA ZDROJE</span></div><div class="slide-id">06</div>
+<div class="ot-stack-diagrams" v-click="1"><figure><figcaption>VM · VLASTNÍ GUEST OS</figcaption><img src="/Container_vs_VM%2001.png" alt="Virtuální stroje: aplikace a knihovny nad samostatným Guest OS a hypervizorem"></figure><figure><figcaption>CONTAINER · SDÍLENÝ HOST OS</figcaption><img src="/Container_vs_VM%2004.png" alt="Containery: aplikace a knihovny nad společným container enginem a hostitelským operačním systémem"></figure></div><div class="ot-stack-callout" v-click="2"><b>Klíčový rozdíl:</b> container nemá vlastní Guest OS ani vlastní kernel. Sdílí kernel hostitelského systému.<br><small>VM virtualizuje celé prostředí; container izoluje proces, filesystem a závislosti. Pro obchodníka je důležité vědět, že runtime = Docker daemon / Engine, container = běžící instance image, a host OS zůstává společný.</small></div><div class="ot-stack-axes" v-click="3"><span>IZOLACE PROSTŘEDÍ</span><span>STARTUP</span><span>NÁROKY NA ZDROJE</span></div><div class="slide-id">06</div>
 
 <!--
 [CLICK]
-První krok: VM virtualizuje celé prostředí s vlastním Guest OS, proto má větší izolaci, ale vyšší nároky na zdroje a pomalejší start.  
+První krok: VM virtualizuje celé prostředí s vlastním Guest OS, proto má větší izolaci, ale vyšší nároky na zdroje a pomalejší start. Schéma vychází z lokálního podkladu `docs/sources/docker-220721080017-eb0483d6.pdf`: VM přidává Guest OS pro každou instanci, zatímco containery sdílejí hostitelský OS a container engine.  
 [CLICK]
 Druhý krok: container izoluje službu a její závislosti, zatímco sdílí kernel hostitelského OS. Pro obchodníka je důležité si pamatovat rozdíl mezi image, runtime a běžícím containerem.  
 [CLICK]
