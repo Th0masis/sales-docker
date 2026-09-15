@@ -298,7 +298,7 @@ const useCases = {
     detail: 'Container může dodat dočasnou nebo opakovatelnou protistranu, která simuluje databázi, API, zařízení nebo další službu potřebnou při testu.',
     value: 'Rychlejší příprava testovacího prostředí bez ruční instalace každé závislosti.',
     boundary: 'Neřeší bezpečnostní validaci ani nenahrazuje test na reálném zařízení, pokud je pro něj potřeba.',
-    example: 'Při automatizovaném FAT balicí linky běží HMI proti databázi v containeru, která je strukturou a testovacími daty podobná produkci, aniž by tým ručně instaloval databázi na každém testovacím PC.',
+    example: 'OEM při automatizovaném FAT balicí linky spustí HMI proti databázi v containeru, která je strukturou a testovacími daty podobná produkci. Tým neinstaluje databázi ručně na každém testovacím PC.',
     role: 'testovací databáze',
     context: ['HMI', 'simulace databáze', 'FAT'],
     accent: '#3ab9d5'
@@ -310,7 +310,7 @@ const useCases = {
     detail: 'Každá budova nebo zákazník může mít vlastní oddělený stack: databázi, dashboard, alarmy a analytiku. Uživatel vidí jen svou budovu; servisní centrála má souhrnný dohled nad portfoliem.',
     value: 'Izolace zákazníků, jasný lokální pohled a současně centrální dohled nad alarmy, stavem a verzemi služeb.',
     boundary: 'Jde o ilustrační architekturu, ne veřejně potvrzenou architekturu KONE. Je nutné navrhnout přístupy, izolaci dat, síť, monitoring a odpovědnost za provoz.',
-    example: 'V domě s výtahy běží vlastní stack pro databázi, dashboard, alarmy a analýzu. Správce domu vidí jen svou instalaci; centrála vidí alarm napříč portfoliem, vyhodnotí ho a v případě potřeby vyšle technika. Ověřenou aktualizaci lze řízeně aplikovat na více stacků.',
+    example: 'V každém domě s výtahy běží vlastní stack pro databázi, dashboard, alarmy a analýzu. Správce domu vidí jen svou instalaci; centrála vyhodnotí alarm napříč portfoliem a podle potřeby vyšle technika. Ověřenou aktualizaci lze řízeně aplikovat na více stacků.',
     role: 'oddělený monitoring stack',
     context: ['budova / zákazník', 'databáze + alarmy', 'servisní centrála'],
     accent: '#54ad78'
@@ -322,7 +322,7 @@ const useCases = {
     detail: 'Image a konfigurace tvoří opakovatelný deployment artefakt. Další instalace nemusí začínat ručním skládáním prostředí.',
     value: 'Méně driftu mezi stroji a snazší rollout stejné služby.',
     boundary: 'Cílová platforma, CPU architektura, storage a síť musí být kompatibilní.',
-    example: 'Po ověření image se stejná doprovodná služba nasadí na novou linku se stejnou konfigurací místo nové ruční instalace.',
+    example: 'OEM při automatickém oživování nové linky stáhne ověřený container s doprovodnou službou a nasadí jej se stejnou konfigurací. Není potřeba ručně instalovat aplikaci a její závislosti na každém stroji.',
     role: 'deployment artefakt',
     context: ['image', 'konfigurace', 'nová linka'],
     accent: '#4d9bd6'
@@ -334,7 +334,7 @@ const useCases = {
     detail: 'Container může hostovat doprovodnou službu mezi PLC a IT světem: gateway, konektor, lokální API nebo předzpracování dat.',
     value: 'Oddělení integrační vrstvy od PLC runtime a možnost samostatného update.',
     boundary: 'Nutné je posoudit síťové hranice, bezpečnost, dostupnost a latenci konkrétní komunikace.',
-    example: 'Edge počítač u stroje provozuje konektor, který čte vybraná data z PLC a předává je do podnikového systému bez zásahu do řídicího cyklu.',
+    example: 'OEM dodá ke stroji edge PC s containerem konektoru. Konektor čte vybraná data z PLC a předává je do MES nebo ERP, aniž by zasahoval do řídicího cyklu PLC.',
     role: 'integrační vrstva',
     context: ['PLC', 'edge počítač', 'IT systém'],
     accent: '#b88d32'
@@ -346,7 +346,7 @@ const useCases = {
     detail: 'Samostatná služba může sbírat provozní data, připravovat je pro dashboard nebo spouštět analytický model mimo řídicí cyklus.',
     value: 'Analytiku lze měnit a aktualizovat bez zásahu do primárního řízení.',
     boundary: 'Data potřebují persistentní uložení, zálohování a jasně definovanou odpovědnost za výsledek analýzy.',
-    example: 'Samostatná služba sbírá data o vibracích pohonu, ukládá je mimo PLC a připravuje je pro dashboard údržby.',
+    example: 'U obráběcího stroje container sbírá vibrace pohonu, ukládá historii mimo PLC a připraví podklady pro dashboard údržby. Analytiku lze aktualizovat bez změny řídicí aplikace.',
     role: 'analytická služba',
     context: ['provozní data', 'analytika', 'údržba'],
     accent: '#8b6bb1'
@@ -358,7 +358,7 @@ const useCases = {
     detail: 'Při větším počtu služeb nebo lokalit už nestačí samotné opakované spuštění containeru. Přibývá koordinace nasazení, monitoring a řízení provozu.',
     value: 'Lepší přehled o verzích, stavu služeb a rollout procesu napříč prostředími.',
     boundary: 'Není to automatická vysoká dostupnost. Je nutné navrhnout síť, přístupy, monitoring, failover a odpovědnost za provoz.',
-    example: 'Integrátor spravuje několik edge služeb ve více výrobních lokalitách a potřebuje řízený rollout, monitoring i dohled nad verzemi.',
+    example: 'OEM nebo integrátor provozuje stejnou edge službu na desítkách linek ve více výrobních lokalitách. Potřebuje řízeně nasadit novou verzi, sledovat stav instalací a bezpečně vrátit neúspěšný rollout.',
     role: 'provozní správa',
     context: ['lokality', 'rollout', 'monitoring'],
     accent: '#d45858'
@@ -380,7 +380,7 @@ V detailu je stejná osnova: barevná mapa ukazuje roli služby a její kontext;
 
 **02 Monitoring výtahů a budov - container jako oddělený monitoring stack.** Význam je oddělit data a pohled jednotlivých zákazníků, ale neztratit centrální servisní dohled. V příkladu má každý dům vlastní databázi, dashboard, alarmy a analytiku; správce vidí jen svůj stack, zatímco centrála vidí alarmy napříč portfoliem, vyhodnotí je a případně vyšle technika. Ověřenou aktualizaci lze řízeně nasadit na více stacků. *Veřejná inspirace:* KONE Remote Service popisuje vzdálený monitoring, diagnostiku, zásahy a OTA aktualizace; veřejné materiály ale nepotvrzují vlastní container architekturu KONE.
 
-**03 Škálování - container jako deployment artefakt.** Význam je opakovat stejné ověřené nasazení, ne ručně znovu skládat prostředí. V příkladu se stejná image a konfigurace přenesou na novou linku; technik ověří kompatibilitu CPU, hostitele, storage a sítě.
+**03 Škálování - container jako deployment artefakt.** Význam je opakovat stejné ověřené nasazení, ne ručně znovu skládat prostředí. OEM při automatickém oživování nové linky stáhne ověřený container s doprovodnou službou a nasadí jej se stejnou konfigurací; technik ověří kompatibilitu CPU, hostitele, storage a sítě.
 
 **04 Edge service - container jako integrační vrstva.** Význam je oddělit propojení IT/OT od PLC runtime. V příkladu edge počítač u stroje provozuje konektor, který předává vybraná data z PLC do IT systému, aniž by zasahoval do řídicího cyklu.
 
