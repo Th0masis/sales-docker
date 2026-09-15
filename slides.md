@@ -177,7 +177,7 @@ class: dark-slide ot-slide
 
 # Nejde o to, co je lepší.<br><span class="accent">Rozhoduje potřebná izolace.</span>
 <div class="ot-vm-decision"><section v-click="1"><span>VIRTUÁLNÍ STROJ</span><strong>Odděluje celé prostředí</strong><ul><li>vlastní Guest OS</li><li>vyšší izolace prostředí</li><li>vyšší režie a delší start</li><li>vhodný, když potřebujeme jiný OS nebo úplnější oddělení</li></ul></section><section v-click="2"><span>CONTAINER</span><strong>Odděluje službu</strong><ul><li>sdílí kernel hostitele</li><li>nižší režie a rychlejší start</li><li>samostatný lifecycle služby</li><li>vhodný pro přenosné služby v kompatibilním prostředí</li></ul></section></div>
-<div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>OT hranice platí pro obě možnosti.</strong><span>VM ani container samy o sobě negarantují deterministický real-time, safety, dostupnost nebo failover.</span></div><div class="slide-id">07</div>
+<div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>Provozní požadavky OT platí pro obě možnosti.</strong><span>VM ani container samy o sobě negarantují deterministický real-time, safety, dostupnost nebo failover.</span></div><div class="slide-id">07</div>
 
 <!--
 [CLICK]
@@ -185,7 +185,7 @@ Virtuální stroj je vhodný, když potřebujeme izolovat celé prostředí vče
 [CLICK]
 Container je vhodný, když chceme samostatně provozovat konkrétní službu se závislostmi v kompatibilním hostitelském prostředí.
 [CLICK]
-V OT nevybíráme podle zkratky „rychlejší“ nebo „modernější“. Technický specialista ověří determinismus, safety, dostupnost, síť a odpovědnost za provoz.
+„OT hranice“ znamená provozní požadavky průmyslové automatizace, které technologie sama nevyřeší: deterministický real-time, safety, dostupnost, failover, síť a odpovědnost za provoz. Proto nevybíráme podle zkratky „rychlejší“ nebo „modernější“; technický specialista ověří, zda daná platforma tyto požadavky konkrétního stroje splní.
 -->
 
 ---
