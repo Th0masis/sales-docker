@@ -1281,7 +1281,7 @@
 
 .ot-command-steps {
   display: grid;
-  align-content: start;
+  align-content: center;
 }
 
 .ot-command-steps > div {
