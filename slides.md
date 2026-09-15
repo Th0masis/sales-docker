@@ -305,14 +305,14 @@ const useCases = {
   },
   central: {
     number: '02',
-    title: 'Centrální služba',
-    summary: 'Data, reporting nebo dispečink pro více zákazníků.',
-    detail: 'Systémový integrátor nebo OEM může provozovat stejnou datovou či reportingovou službu pro více strojů a lokalit.',
-    value: 'Jednotný deployment, verzování a aktualizace služby napříč instalacemi.',
-    boundary: 'Je potřeba vyřešit izolaci zákazníků, přístupy, síť, monitoring a odpovědnost za provoz.',
-    example: 'OEM provozuje stejnou reportingovou službu pro několik linek v různých závodech a sleduje verzi každé instalace.',
-    role: 'reportingová služba',
-    context: ['linky', 'reportingová služba', 'závody'],
+    title: 'Monitoring výtahů a budov',
+    summary: 'Oddělený stack budovy, lokální dohled a centrální servis.',
+    detail: 'Každá budova nebo zákazník může mít vlastní oddělený stack: databázi, dashboard, alarmy a analytiku. Uživatel vidí jen svou budovu; servisní centrála má souhrnný dohled nad portfoliem.',
+    value: 'Izolace zákazníků, jasný lokální pohled a současně centrální dohled nad alarmy, stavem a verzemi služeb.',
+    boundary: 'Jde o ilustrační architekturu, ne veřejně potvrzenou architekturu KONE. Je nutné navrhnout přístupy, izolaci dat, síť, monitoring a odpovědnost za provoz.',
+    example: 'V domě s výtahy běží vlastní stack pro databázi, dashboard, alarmy a analýzu. Správce domu vidí jen svou instalaci; centrála vidí alarm napříč portfoliem, vyhodnotí ho a v případě potřeby vyšle technika. Ověřenou aktualizaci lze řízeně aplikovat na více stacků.',
+    role: 'oddělený monitoring stack',
+    context: ['budova / zákazník', 'databáze + alarmy', 'servisní centrála'],
     accent: '#54ad78'
   },
   scale: {
@@ -378,7 +378,7 @@ V detailu je stejná osnova: barevná mapa ukazuje roli služby a její kontext;
 
 **01 DevOps a commissioning - container jako testovací databáze.** Význam je opakovatelné testovací prostředí. V příkladu HMI při automatizovaném FAT komunikuje s databází podobnou produkci, takže tým ověřuje relevantní chování bez ruční instalace databáze na každém testovacím PC.
 
-**02 Centrální služba - container jako reportingová služba.** Význam je jednotný provoz stejné datové nebo reportingové služby pro více instalací. V příkladu OEM sleduje verzi reportingové služby na několika linkách v různých závodech; předem je však nutné vyřešit přístupy, izolaci zákazníků a odpovědnost.
+**02 Monitoring výtahů a budov - container jako oddělený monitoring stack.** Význam je oddělit data a pohled jednotlivých zákazníků, ale neztratit centrální servisní dohled. V příkladu má každý dům vlastní databázi, dashboard, alarmy a analytiku; správce vidí jen svůj stack, zatímco centrála vidí alarmy napříč portfoliem, vyhodnotí je a případně vyšle technika. Ověřenou aktualizaci lze řízeně nasadit na více stacků. *Veřejná inspirace:* KONE Remote Service popisuje vzdálený monitoring, diagnostiku, zásahy a OTA aktualizace; veřejné materiály ale nepotvrzují vlastní container architekturu KONE.
 
 **03 Škálování - container jako deployment artefakt.** Význam je opakovat stejné ověřené nasazení, ne ručně znovu skládat prostředí. V příkladu se stejná image a konfigurace přenesou na novou linku; technik ověří kompatibilitu CPU, hostitele, storage a sítě.
 
