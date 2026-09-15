@@ -142,17 +142,22 @@ class: ot-slide
 
 # Jak se z image stane<br><span class="accent">běžící container</span>
 <div class="ot-disclaimer" v-click="1">Nejde o B&R referenci. Jedná se o princip, jak image vznikne a jak z ní běží container.</div>
+<div class="ot-runtime-lifecycle" aria-label="Životní cyklus služby v containeru"><span v-click="1"><b>01</b>BUILD</span><i v-click="2"></i><span v-click="2"><b>02</b>TEST</span><i v-click="3"></i><span v-click="3"><b>03</b>PACKAGE</span><i v-click="4"></i><span v-click="4"><b>04</b>PULL</span><i v-click="5"></i><span v-click="5"><b>05</b>RUN</span><i v-click="6"></i><span v-click="6"><b>06</b>OBSERVE</span><i v-click="7"></i><span v-click="7"><b>07</b>UPDATE</span></div>
 <div class="ot-command-demo"><aside class="ot-command-steps"><div v-click="1"><b>01</b><strong>FIND IMAGE</strong><small>najdu image na Docker Hubu</small></div><div v-click="2"><b>02</b><strong>PULL IMAGE</strong><small>stáhnu konkrétní tag</small></div><div v-click="3"><b>03</b><strong>RUN</strong><small>spustím container z image</small></div><div v-click="4"><b>04</b><strong>OBSERVE</strong><small>ověřím stav přes docker ps</small></div></aside><div class="ot-command-terminal"><header><i></i><i></i><i></i><span>COMMAND PROMPT · DOCKER HUB</span></header><div class="ot-command-log"><div class="ot-command-row" v-click="1"><small>$</small><div class="ot-command-cell"><code>docker search nginx</code><strong>NAME · nginx · OFFICIAL IMAGE</strong><strong>DESCRIPTION · official web server image</strong></div></div><div class="ot-command-row is-pulling" v-click="2"><small>$</small><div class="ot-command-cell"><code>docker pull nginx:alpine</code><div class="ot-download-progress" aria-label="Downloading image"><span class="ot-download-bar" style="width: 72%"></span><span class="ot-download-hash">##########</span><span class="ot-download-value">72%</span></div><strong>STATUS · Downloading · nginx:alpine</strong><strong>RESULT · Downloaded newer image for nginx:alpine</strong></div></div><div class="ot-command-row" v-click="3"><small>$</small><div class="ot-command-cell"><code>docker run -d -p 8080:80 --name demo-web nginx:alpine</code><strong>RESULT · container created successfully</strong><strong>PORT MAPPING · 0.0.0.0:8080 → 80/tcp</strong></div></div><div class="ot-command-row" v-click="4"><small>$</small><div class="ot-command-cell"><code>docker ps</code><strong>STATUS · Up 3 seconds</strong><strong>NAMES · demo-web · IMAGE · nginx:alpine · PORTS · 0.0.0.0:8080->80/tcp</strong></div></div></div><footer>COMMAND DEMONSTRATOR · ACTION + OBSERVATION</footer></div></div><div class="ot-command-reference" v-click="4"><span>DOCKER HUB</span><a href="https://hub.docker.com/_/nginx" target="_blank">hub.docker.com/_/nginx</a><small>image = balíček · container = běžící instance</small></div><div class="slide-id">06</div>
 
 <!--
 [CLICK]
-Nejdříve vyhledáme oficiální image nginx. Příkaz docker search ukazuje princip hledání image v Docker Hub registru.
+Build vytváří image; ještě před nasazením má tým ověřit očekávané chování služby. Obchodní otázka zní: kdo test a přijetí konkrétní verze vlastní?
 [CLICK]
-Příkazem docker pull stáhneme konkrétní tag nginx:alpine, tedy verzovaný balíček služby.
+Ověřená image dostane konkrétní tag nebo digest a jde do registry. Tím vzniká dohledatelný artefakt pro další prostředí, ne nepojmenovaný soubor na serveru.
 [CLICK]
-Příkaz docker run z image vytvoří a spustí běžící container. Přepínač -p 8080:80 ukazuje, že port aplikace je přístupný z hostitele, zatímco samotný container zůstává izolovaný proces.
+Na cílovém hostiteli se image stáhne příkazem docker pull. Registry distribuuje image; Docker daemon / Engine pak spravuje samotný běh containeru.
 [CLICK]
-Příkaz docker ps je pozorování: ukáže, že container demo-web skutečně běží a je dostupný přes hostitelský port. Odkaz pod terminálem vede na stejnou image v Docker Hubu.
+Příkaz docker run vytvoří a spustí container. Přepínač -p 8080:80 ukazuje, že port aplikace je přístupný z hostitele; síť a publikované porty jsou vědomé provozní rozhodnutí.
+[CLICK]
+Po spuštění sledujeme stav přes docker ps a diagnostiku přes docker logs nebo health check. „Běží“ není automaticky totéž jako „služba je připravená“.
+[CLICK]
+Aktualizace znamená ověřenou novou image, nahrazení běžící instance a znovu ověření služby. Image má životní cyklus build a distribuce; container má životní cyklus run, observe a replace.
 -->
 
 ---

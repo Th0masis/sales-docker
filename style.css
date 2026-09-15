@@ -876,6 +876,36 @@
   text-align: center;
 }
 
+.ot-runtime-lifecycle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+
+.ot-runtime-lifecycle span {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 3px;
+  padding: 7px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #f5f7f8;
+  font: 700 11px/1 'IBM Plex Mono', monospace;
+}
+
+.ot-runtime-lifecycle b {
+  color: var(--br-orange);
+  font: 600 9px/1 'IBM Plex Mono', monospace;
+}
+
+.ot-runtime-lifecycle i {
+  flex: 1 1 12px;
+  min-width: 8px;
+  height: 1px;
+  background: var(--br-orange);
+}
+
 .ot-command-demo {
   display: grid;
   grid-template-columns: 235px 1fr;
