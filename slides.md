@@ -374,7 +374,19 @@ const useCases = {
 <!--
 Tento slide je **interaktivní menu se šesti scénáři**, ne lineární odhalování. Vyberte kartu podle situace zákazníka a otevřete detail; uzavírací tlačítko se vrátí do přehledu.
 
-U každého scénáře držte stejnou strukturu: ne-lineární barevná mapa ukazuje kontext služby, pod ní je co služba znamená, **praktický OT příklad**, obchodní hodnota a na co si dát pozor. *Pauza.* Jsou to potenciální oblasti, nikoli hotová B&R řešení.
+V detailu je stejná osnova: barevná mapa ukazuje roli služby a její kontext; pod ní je význam, **praktický OT příklad**, obchodní hodnota a hranice použití.
+
+**01 DevOps a commissioning - container jako testovací databáze.** Význam je opakovatelné testovací prostředí. V příkladu HMI při automatizovaném FAT komunikuje s databází podobnou produkci, takže tým ověřuje relevantní chování bez ruční instalace databáze na každém testovacím PC.
+
+**02 Centrální služba - container jako reportingová služba.** Význam je jednotný provoz stejné datové nebo reportingové služby pro více instalací. V příkladu OEM sleduje verzi reportingové služby na několika linkách v různých závodech; předem je však nutné vyřešit přístupy, izolaci zákazníků a odpovědnost.
+
+**03 Škálování - container jako deployment artefakt.** Význam je opakovat stejné ověřené nasazení, ne ručně znovu skládat prostředí. V příkladu se stejná image a konfigurace přenesou na novou linku; technik ověří kompatibilitu CPU, hostitele, storage a sítě.
+
+**04 Edge service - container jako integrační vrstva.** Význam je oddělit propojení IT/OT od PLC runtime. V příkladu edge počítač u stroje provozuje konektor, který předává vybraná data z PLC do IT systému, aniž by zasahoval do řídicího cyklu.
+
+**05 Prediktivní údržba - container jako analytická služba.** Význam je měnit sběr a analýzu dat nezávisle na řízení stroje. V příkladu služba zpracuje vibrace pohonu, ukládá je mimo PLC a připraví je pro dashboard údržby; vyžaduje persistentní data, zálohy a vlastníka výsledku analýzy.
+
+**06 Orchestrace a multi-site - container jako provozní jednotka pod správou.** Význam nastává až při více službách nebo lokalitách. V příkladu integrátor řídí rollout a monitoring edge služeb napříč výrobními lokalitami; orchestrace sama ovšem negarantuje vysokou dostupnost ani nenahrazuje návrh sítě a failoveru.
 
 Při větším počtu služeb nebo lokalit přibývá orchestrace, monitoring, síť, failover a odpovědnost za provoz. **Container sám tuto provozní vrstvu nenahradí.**
 -->
