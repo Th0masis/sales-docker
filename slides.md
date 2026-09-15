@@ -72,14 +72,15 @@ class: dark-slide ot-slide
 
 # Co je container?<br><span class="accent">Služba zabalená se svými závislostmi.</span>
 <div class="ot-lifecycle ot-lifecycle-clicks">
-  <div class="ot-lifecycle-stage is-build" v-click="1"><span>01 · VYTVÁŘÍM</span><b>BUILD</b><small>aplikace + závislosti + konfigurace</small><div class="ot-build-mini"><strong>APP</strong><strong>LIBS</strong><strong>CFG</strong></div></div>
+  <div class="ot-lifecycle-stage is-build" v-click="1"><span>01 · VYTVÁŘÍM</span><b>BUILD</b><small>aplikace + závislosti + konfigurace</small><div class="ot-build-mini"><div><code class="is-active">app.py</code><code>deps.txt</code><code>config.yml</code></div><pre><code>from service import app
+app.start()</code></pre></div></div>
   <i class="ot-lifecycle-link" v-click="1"></i>
   <div class="ot-lifecycle-stage is-image" v-click="2"><span>02 · ZABALÍM A OZNAČÍM VERZÍ</span><b>IMAGE</b><small>verzovaný balíček služby</small><div class="ot-image-tags"><div><strong>service:1.2</strong><small>starší verze</small></div><div class="is-current"><strong>service:1.4</strong><small>aktuální tag</small></div><div><strong>service:2.0</strong><small>nová verze</small></div></div></div>
   <i class="registry ot-lifecycle-link" v-click="2"><small>registry<br>Docker Hub</small></i>
   <div class="ot-lifecycle-stage is-deploy" v-click="3"><span>03 · SPUSTÍM</span><b>DEPLOY</b><small>image se spustí jako běžící container</small><div class="ot-deploy-animation"><div class="ot-deploy-column"><div class="ot-deploy-action"><span>PULL</span></div><div class="ot-deploy-source"><span>IMAGE</span><strong>service:1.4</strong></div></div><i></i><div class="ot-deploy-column"><div class="ot-deploy-action"><span>RUN</span></div><div class="ot-deploy-target"><span>RUNNING</span><strong>container</strong></div></div></div></div>
 </div>
 <div class="ot-definition" v-click="4"><strong>Image není běžící container.</strong><span>Image je balíček. Container je její spuštěná instance.</span></div>
-<div class="ot-note-row" v-click="4"><span>STEJNÝ BĚH</span><b>v kompatibilním prostředí</b><span>PŘENOSITELNOST ≠ LIBOVOLNÝ OS</span></div><div class="slide-id">03</div>
+<div class="ot-note-row" v-click="4"><span>STEJNÝ BĚH</span><b>v kompatibilním prostředí</b><i></i><span>PŘENOSITELNOST ≠ LIBOVOLNÝ OS</span></div><div class="slide-id">03</div>
 
 <!--
 [CLICK]

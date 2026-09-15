@@ -612,6 +612,47 @@
   font: 700 30px/1 'Barlow Condensed', sans-serif;
 }
 
+.ot-build-mini {
+  margin-top: 22px;
+}
+
+.ot-build-mini > div {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.ot-build-mini > div code {
+  display: block;
+  padding: 5px 7px;
+  background: rgba(0, 0, 0, 0.24) !important;
+  color: #f7dfbd;
+  font: 600 9px/1.2 'IBM Plex Mono', monospace;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ot-build-mini > div code.is-active {
+  border-top: 1px solid var(--br-orange);
+  background: rgba(255, 122, 0, 0.16) !important;
+  color: var(--white);
+}
+
+.ot-build-mini pre {
+  margin: 0;
+  padding: 7px 9px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.ot-build-mini pre code {
+  display: block;
+  background: transparent !important;
+  color: #d9e0e3;
+  font: 9px/1.35 'IBM Plex Mono', monospace;
+  white-space: pre-wrap;
+}
+
 .ot-lifecycle small,
 .ot-note-row,
 .ot-walkthrough-note {
@@ -669,8 +710,9 @@
 .ot-note-row,
 .ot-walkthrough-note {
   display: flex;
-  justify-content: space-between;
-  gap: 18px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
   margin-top: 18px;
 }
 
@@ -678,6 +720,17 @@
 .ot-walkthrough-note span {
   color: var(--br-orange);
   font: 600 10px/1.2 'IBM Plex Mono', monospace;
+}
+
+.ot-note-row b {
+  color: #f5f7f8;
+}
+
+.ot-note-row i {
+  width: 1px;
+  height: 18px;
+  margin: 0 4px;
+  background: rgba(255, 255, 255, 0.24);
 }
 
 .ot-compare {
