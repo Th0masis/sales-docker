@@ -96,11 +96,35 @@ Poznámka pro sales: tento slide je obecný princip; konkrétní B&R deployment,
 layout: default
 class: ot-slide
 ---
+
+<div class="kicker">SLOVNÍK · ČTYŘI POJMY</div>
+
+# Co přesně se v container řešení<br><span class="accent">buildí, spouští a ukládá?</span>
+<div class="ot-semantic-grid"><section v-click="1"><span>IMAGE</span><strong>Verzovaný balíček</strong><p>Obsahuje aplikaci, závislosti a konfiguraci potřebnou pro běh.</p></section><section v-click="2"><span>CONTAINER</span><strong>Běžící instance</strong><p>Je spuštěná z konkrétní image a má vlastní životní cyklus.</p></section><section v-click="3"><span>RUNTIME</span><strong>Prostředí pro běh</strong><p>Hostitel a jeho runtime vytváří, spouští a spravuje containery.</p></section><section v-click="4"><span>VOLUME</span><strong>Persistentní data</strong><p>Odděluje data služby od dočasného filesystemu containeru.</p></section></div>
+<div class="ot-definition" v-click="5"><strong>Praktická zkratka:</strong><span>image se vytváří a distribuuje; container se spouští a nahrazuje; volume se zálohuje a obnovuje.</span></div><div class="slide-id">04</div>
+
+<!--
+[CLICK]
+Image je verzovaný balíček. Máme vědět, kterou konkrétní verzi služby chceme provozovat.
+[CLICK]
+Container je běžící instance image. Jeho restart nebo nahrazení samo o sobě nemění image.
+[CLICK]
+Runtime je prostředí na hostiteli, které běh spravuje. Proto je součástí technického posouzení cílová platforma, síť a odpovědnost za provoz.
+[CLICK]
+Volume řeší persistentní data. Databáze nebo důležitá konfigurace nesmí záviset jen na dočasném filesystemu containeru.
+[CLICK]
+Toto rozdělení vede k praktické otázce: kdo vlastní image, kdo provoz containeru a kdo ověřuje zálohu a obnovu dat.
+-->
+
+---
+layout: default
+class: ot-slide
+---
 <div class="kicker">SROVNÁNÍ · PROVOZNÍ DRIFT</div>
 
 # Container snižuje rozdíly mezi<br><span class="accent">prostředími</span>
 <div class="ot-compare-layout"><div class="ot-compare"><section class="ot-compare-card manual" v-click="1"><div class="ot-card-label">STANDARDNÍ INSTALACE</div><div class="ot-flow"><b>aplikace</b><i>+</i><b>hostitel</b><i>+</i><b>ruční konfigurace</b></div><ul><li>jiné verze knihoven</li><li>jiné nastavení stroje</li><li>ruční update a opravy</li></ul><strong>Výsledek: drift prostředí</strong></section><section class="ot-compare-card packaged" v-click="2"><div class="ot-card-label">CONTAINER</div><div class="ot-flow"><b>image</b><i>→</i><b>runtime</b><i>→</i><b>stejná služba</b></div><ul><li>balíček se závislostmi</li><li>verze je označená</li><li>nasazení lze opakovat</li></ul><strong>Výsledek: méně ručních zásahů</strong></section></div><figure class="ot-compare-visual" v-click="3"><img src="/automated_orchestration_b04ac97bfc.png" alt="Ruční úkoly oproti automatizované orchestraci"><figcaption><span>RUČNÍ INSTALACE</span><i>→</i><span>OPAKOVATELNÝ PROVOZ SLUŽEB</span></figcaption></figure></div>
-<div class="ot-quote" v-click="4">Container snižuje počet ručních zásahů a pomáhá provozovat stejnou službu opakovatelně v kompatibilním prostředí.</div><div class="slide-id">04</div>
+<div class="ot-quote" v-click="4">Container snižuje počet ručních zásahů a pomáhá provozovat stejnou službu opakovatelně v kompatibilním prostředí.</div><div class="slide-id">05</div>
 <!--
 [CLICK]
 První krok: standardní instalace na hostitelském systému vytváří rozdílné verze knihoven, nastavení a update na každém stroji.  
@@ -120,7 +144,7 @@ class: dark-slide ot-slide
 <div class="kicker">VRSTVY · CONTAINER VS VM</div>
 
 # Kterou vrstvu skutečně<br><span class="accent">potřebujeme izolovat?</span>
-<div class="ot-stack-diagrams" v-click="1"><figure><figcaption>VM · VLASTNÍ GUEST OS</figcaption><img src="/virtual-machine-diagram.svg" alt="Vrstvy virtuálního stroje"></figure><figure><figcaption>CONTAINER · SDÍLENÝ HOST OS</figcaption><img src="/container-diagram.svg" alt="Vrstvy containeru"></figure></div><div class="ot-stack-callout" v-click="2"><b>Klíčový rozdíl:</b> container nemá vlastní Guest OS ani vlastní kernel. Sdílí kernel hostitelského systému.<br><small>VM virtualizuje celé prostředí; container izoluje proces, filesystem a závislosti. Pro obchodníka je důležité vědět, že runtime = Docker daemon / Engine, container = běžící instance image, a host OS zůstává společný.</small></div><div class="ot-stack-axes" v-click="3"><span>IZOLACE PROSTŘEDÍ</span><span>STARTUP</span><span>NÁROKY NA ZDROJE</span></div><div class="slide-id">05</div>
+<div class="ot-stack-diagrams" v-click="1"><figure><figcaption>VM · VLASTNÍ GUEST OS</figcaption><img src="/virtual-machine-diagram.svg" alt="Vrstvy virtuálního stroje"></figure><figure><figcaption>CONTAINER · SDÍLENÝ HOST OS</figcaption><img src="/container-diagram.svg" alt="Vrstvy containeru"></figure></div><div class="ot-stack-callout" v-click="2"><b>Klíčový rozdíl:</b> container nemá vlastní Guest OS ani vlastní kernel. Sdílí kernel hostitelského systému.<br><small>VM virtualizuje celé prostředí; container izoluje proces, filesystem a závislosti. Pro obchodníka je důležité vědět, že runtime = Docker daemon / Engine, container = běžící instance image, a host OS zůstává společný.</small></div><div class="ot-stack-axes" v-click="3"><span>IZOLACE PROSTŘEDÍ</span><span>STARTUP</span><span>NÁROKY NA ZDROJE</span></div><div class="slide-id">06</div>
 
 <!--
 [CLICK]
@@ -135,6 +159,26 @@ Závěr: container je vhodný tam, kde chceme oddělit službu, ne celé prostř
 
 ---
 layout: default
+class: dark-slide ot-slide
+---
+
+<div class="kicker">ROZHODNUTÍ · VM NEBO CONTAINER</div>
+
+# Nejde o to, co je lepší.<br><span class="accent">Rozhoduje potřebná izolace.</span>
+<div class="ot-vm-decision"><section v-click="1"><span>VIRTUÁLNÍ STROJ</span><strong>Odděluje celé prostředí</strong><ul><li>vlastní Guest OS</li><li>vyšší izolace prostředí</li><li>vyšší režie a delší start</li><li>vhodný, když potřebujeme jiný OS nebo úplnější oddělení</li></ul></section><section v-click="2"><span>CONTAINER</span><strong>Odděluje službu</strong><ul><li>sdílí kernel hostitele</li><li>nižší režie a rychlejší start</li><li>samostatný lifecycle služby</li><li>vhodný pro přenosné služby v kompatibilním prostředí</li></ul></section></div>
+<div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>OT hranice platí pro obě možnosti.</strong><span>VM ani container samy o sobě negarantují deterministický real-time, safety, dostupnost nebo failover.</span></div><div class="slide-id">07</div>
+
+<!--
+[CLICK]
+Virtuální stroj je vhodný, když potřebujeme izolovat celé prostředí včetně vlastního Guest OS. Přináší ale větší provozní režii.
+[CLICK]
+Container je vhodný, když chceme samostatně provozovat konkrétní službu se závislostmi v kompatibilním hostitelském prostředí.
+[CLICK]
+V OT nevybíráme podle zkratky „rychlejší“ nebo „modernější“. Technický specialista ověří determinismus, safety, dostupnost, síť a odpovědnost za provoz.
+-->
+
+---
+layout: default
 class: ot-slide
 ---
 
@@ -143,7 +187,7 @@ class: ot-slide
 # Jak se z image stane<br><span class="accent">běžící container</span>
 <div class="ot-disclaimer" v-click="1">Nejde o B&R referenci. Jedná se o princip, jak image vznikne a jak z ní běží container.</div>
 <div class="ot-runtime-lifecycle" aria-label="Životní cyklus služby v containeru"><span v-click="1"><b>01</b>BUILD</span><i v-click="2"></i><span v-click="2"><b>02</b>TEST</span><i v-click="3"></i><span v-click="3"><b>03</b>PACKAGE</span><i v-click="4"></i><span v-click="4"><b>04</b>PULL</span><i v-click="5"></i><span v-click="5"><b>05</b>RUN</span><i v-click="6"></i><span v-click="6"><b>06</b>OBSERVE</span><i v-click="7"></i><span v-click="7"><b>07</b>UPDATE</span></div>
-<div class="ot-command-demo"><aside class="ot-command-steps"><div v-click="1"><b>01</b><strong>FIND IMAGE</strong><small>najdu image na Docker Hubu</small></div><div v-click="2"><b>02</b><strong>PULL IMAGE</strong><small>stáhnu konkrétní tag</small></div><div v-click="3"><b>03</b><strong>RUN</strong><small>spustím container z image</small></div><div v-click="4"><b>04</b><strong>OBSERVE</strong><small>ověřím stav přes docker ps</small></div></aside><div class="ot-command-terminal"><header><i></i><i></i><i></i><span>COMMAND PROMPT · DOCKER HUB</span></header><div class="ot-command-log"><div class="ot-command-row" v-click="1"><small>$</small><div class="ot-command-cell"><code>docker search nginx</code><strong>NAME · nginx · OFFICIAL IMAGE</strong><strong>DESCRIPTION · official web server image</strong></div></div><div class="ot-command-row is-pulling" v-click="2"><small>$</small><div class="ot-command-cell"><code>docker pull nginx:alpine</code><div class="ot-download-progress" aria-label="Downloading image"><span class="ot-download-bar" style="width: 72%"></span><span class="ot-download-hash">##########</span><span class="ot-download-value">72%</span></div><strong>STATUS · Downloading · nginx:alpine</strong><strong>RESULT · Downloaded newer image for nginx:alpine</strong></div></div><div class="ot-command-row" v-click="3"><small>$</small><div class="ot-command-cell"><code>docker run -d -p 8080:80 --name demo-web nginx:alpine</code><strong>RESULT · container created successfully</strong><strong>PORT MAPPING · 0.0.0.0:8080 → 80/tcp</strong></div></div><div class="ot-command-row" v-click="4"><small>$</small><div class="ot-command-cell"><code>docker ps</code><strong>STATUS · Up 3 seconds</strong><strong>NAMES · demo-web · IMAGE · nginx:alpine · PORTS · 0.0.0.0:8080->80/tcp</strong></div></div></div><footer>COMMAND DEMONSTRATOR · ACTION + OBSERVATION</footer></div></div><div class="ot-command-reference" v-click="4"><span>DOCKER HUB</span><a href="https://hub.docker.com/_/nginx" target="_blank">hub.docker.com/_/nginx</a><small>image = balíček · container = běžící instance</small></div><div class="slide-id">06</div>
+<div class="ot-command-demo"><aside class="ot-command-steps"><div v-click="1"><b>01</b><strong>FIND IMAGE</strong><small>najdu image na Docker Hubu</small></div><div v-click="2"><b>02</b><strong>PULL IMAGE</strong><small>stáhnu konkrétní tag</small></div><div v-click="3"><b>03</b><strong>RUN</strong><small>spustím container z image</small></div><div v-click="4"><b>04</b><strong>OBSERVE</strong><small>ověřím stav přes docker ps</small></div></aside><div class="ot-command-terminal"><header><i></i><i></i><i></i><span>COMMAND PROMPT · DOCKER HUB</span></header><div class="ot-command-log"><div class="ot-command-row" v-click="1"><small>$</small><div class="ot-command-cell"><code>docker search nginx</code><strong>NAME · nginx · OFFICIAL IMAGE</strong><strong>DESCRIPTION · official web server image</strong></div></div><div class="ot-command-row is-pulling" v-click="2"><small>$</small><div class="ot-command-cell"><code>docker pull nginx:alpine</code><div class="ot-download-progress" aria-label="Downloading image"><span class="ot-download-bar" style="width: 72%"></span><span class="ot-download-hash">##########</span><span class="ot-download-value">72%</span></div><strong>STATUS · Downloading · nginx:alpine</strong><strong>RESULT · Downloaded newer image for nginx:alpine</strong></div></div><div class="ot-command-row" v-click="3"><small>$</small><div class="ot-command-cell"><code>docker run -d -p 8080:80 --name demo-web nginx:alpine</code><strong>RESULT · container created successfully</strong><strong>PORT MAPPING · 0.0.0.0:8080 → 80/tcp</strong></div></div><div class="ot-command-row" v-click="4"><small>$</small><div class="ot-command-cell"><code>docker ps</code><strong>STATUS · Up 3 seconds</strong><strong>NAMES · demo-web · IMAGE · nginx:alpine · PORTS · 0.0.0.0:8080->80/tcp</strong></div></div></div><footer>COMMAND DEMONSTRATOR · ACTION + OBSERVATION</footer></div></div><div class="ot-command-reference" v-click="4"><span>DOCKER HUB</span><a href="https://hub.docker.com/_/nginx" target="_blank">hub.docker.com/_/nginx</a><small>image = balíček · container = běžící instance</small></div><div class="slide-id">08</div>
 
 <!--
 [CLICK]
@@ -165,11 +209,45 @@ layout: default
 class: dark-slide ot-slide
 ---
 
+<div class="kicker">DOCKER COMPOSE · MENŠÍ STACK</div>
+
+# Jedna deklarace pro<br><span class="accent">více služeb na jednom hostiteli</span>
+<div class="ot-compose-layout"><pre class="ot-compose-code" v-click="1"><code>services:
+  app:
+    image: example/app:1.4
+    ports: ["8080:8080"]
+    depends_on: [db]
+  db:
+    image: mariadb:11.4
+    volumes: [db-data:/var/lib/mysql]
+volumes:
+  db-data:</code></pre><div class="ot-compose-explain"><section v-click="2"><span>SLUŽBY A SÍŤ</span><strong><code>app</code> komunikuje s <code>db</code> přes název služby.</strong><p>Port publikujeme jen tam, kde ho potřebuje hostitel nebo externí klient.</p></section><section v-click="3"><span>DATA</span><strong>Named volume drží data mimo container.</strong><p>Persistentní data vyžadují zálohu a ověřený postup obnovy.</p></section></div></div>
+<div class="ot-compose-commands" v-click="4"><code>docker compose up -d</code><code>docker compose ps</code><code>docker compose logs</code><code>docker compose down</code></div><div class="ot-compose-warning" v-click="5"><strong><code>depends_on</code> určuje pořadí startu, ne připravenost databáze.</strong><span>Compose usnadňuje lokální nebo edge stack na jednom hostiteli; není automaticky multi-site orchestrace ani vysoká dostupnost.</span></div><div class="slide-id">09</div>
+
+<!--
+[CLICK]
+Docker Compose popíše více služeb v jednom YAML souboru. Není to další typ containeru, ale deklarace menšího stacku na jednom hostiteli.
+[CLICK]
+Služba app hledá databázi pod jménem db. Síť mezi službami je součást definice; port zveřejňujeme pouze tam, kde jej skutečně potřebuje hostitel nebo klient.
+[CLICK]
+Databázová data patří do named volume, ne pouze do filesystemu běžícího containeru. Proto je záloha a obnova konkrétní provozní odpovědnost.
+[CLICK]
+Příkazy ukazují běžný provoz stacku: spustit, ověřit stav, číst logy a řízeně ukončit. Příkaz down s parametrem -v by mohl odstranit named volumes, proto jej zde záměrně neukazujeme.
+[CLICK]
+depends_on není health check databáze, pouze pořadí startu. Compose je vhodný pro menší lokální nebo edge stack; více lokalit, failover a centrální správa vyžadují další provozní vrstvu.
+-->
+
+---
+layout: default
+class: dark-slide ot-slide
+---
+
 <div class="kicker">OT · KDE TO DÁVÁ SMYSL</div>
 
 # Služby kolem PLC lze nasazovat<br><span class="accent">rychleji a opakovaně</span>
-<div class="ot-before-after" v-click="1"><section><span>DŘÍVE</span><strong>8 ručních instalací</strong><div class="ot-install-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>každý stroj trochu jiný</small></section><mdi-arrow-right /><section class="is-good"><span>S CONTAINEREM</span><strong>1 balíček, opakovaně nasazený</strong><div class="ot-package">IMAGE<br><small>verze 1.4</small></div><small>rychlejší rozjezd · samostatný update mimo PLC · opakovatelnost</small></section></div><div class="ot-benefit-grid" v-click="2"><div><b>01</b><strong>Rychlejší rozjezd</strong><small>doplňkové služby</small></div><div><b>02</b><strong>Update mimo PLC</strong><small>oddělený životní cyklus</small></div><div><b>03</b><strong>Stejné řešení</strong><small>další stroj nebo závod</small></div></div><div class="ot-disclaimer" v-click="3">Přínos vždy závisí na rozsahu a implementaci.</div><div class="slide-id">07</div>
+<div class="ot-before-after" v-click="1"><section><span>DŘÍVE</span><strong>8 ručních instalací</strong><div class="ot-install-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>každý stroj trochu jiný</small></section><mdi-arrow-right /><section class="is-good"><span>S CONTAINEREM</span><strong>1 balíček, opakovaně nasazený</strong><div class="ot-package">IMAGE<br><small>verze 1.4</small></div><small>rychlejší rozjezd · samostatný update mimo PLC · opakovatelnost</small></section></div><div class="ot-benefit-grid" v-click="2"><div><b>01</b><strong>Rychlejší rozjezd</strong><small>doplňkové služby</small></div><div><b>02</b><strong>Update mimo PLC</strong><small>oddělený životní cyklus</small></div><div><b>03</b><strong>Stejné řešení</strong><small>další stroj nebo závod</small></div></div><div class="ot-disclaimer" v-click="3">Přínos vždy závisí na rozsahu a implementaci.</div><div class="slide-id">10</div>
 
+<div class="ot-qualification" v-click="4"><span>OTÁZKY PŘED DALŠÍM KROKEM</span><b>Kolikrát službu nasazujeme?</b><b>Jak ji budeme aktualizovat?</b><b>Je hostitel, síť a storage kompatibilní?</b><b>Kdo odpovídá za provoz?</b></div>
 <!--
 [CLICK]
 První krok: ruční instalace vede k tomu, že každá linka nebo stroj pracuje trochu jinak.
@@ -177,6 +255,8 @@ První krok: ruční instalace vede k tomu, že každá linka nebo stroj pracuje
 Druhý krok: s containerem je jeden balíček služby a stejný způsob nasazení na více místech.  
 [CLICK]
 Třetí krok: služba se může aktualizovat nebo rozjíždět samostatně, bez zásahu do PLC runtime.  
+[CLICK]
+Než nabídku posuneme dál, potřebujeme znát rozsah nasazení, způsob aktualizace, kompatibilitu hostitele, sítě a storage a vlastníka provozu. Tyto odpovědi jsou vstupem pro technického specialistu.
 [CLICK]
 Závěr: přínos závisí na rozsahu a implementaci, ale princip je stejný — opakovatelnost služeb kolem PLC.
 -->
@@ -189,7 +269,7 @@ class: ot-slide
 <div class="kicker">B&amp;R PŘÍKLAD · VÁNAD / PÁLÍCÍ STROJE</div>
 
 # CSV do PLC vs. MariaDB + BR services:<br><span class="accent">rychlejší start, menší projekt a robustnější data</span>
-<div class="ot-db-compare" v-click="1"><section><span>PŘED</span><div class="ot-db-flow tangled"><b>CSV</b><i>→</i><b>parsování při startu</b><i>→</i><b>struktury v PLC</b></div><small>watchdog · velké struktury · dlouhý start</small></section><section class="is-good"><span>PO</span><div class="ot-db-flow"><b>pálicí plán</b><i>→</i><b>MariaDB + BR service</b><i>→</i><b>databázové tabulky</b></div><small>vývoj kratší · data přehlednější · lepší provoz</small></section></div><div class="ot-db-bottom" v-click="2"><div><strong>Problém</strong><span>velká CSV, parsing a startup v řádu minut</span></div><div><strong>Přechod</strong><span>data v DB, uživatelské tabulky a přesnější model</span></div><div class="warning"><strong>Takeaway</strong><span>deployment zjednodušený, dev čas kratší, data robustnější</span></div></div><div class="ot-db-bottom" v-click="3"><div><strong>Build once</strong><span>kontejnery zjednodušují deployment</span></div><div><strong>BR service</strong><span>běží na Podman v produkci</span></div><div class="warning"><strong>Specific tags</strong><span>nikdy latest, jen konkrétní verze</span></div></div><div class="slide-id">08</div>
+<div class="ot-db-compare" v-click="1"><section><span>PŘED</span><div class="ot-db-flow tangled"><b>CSV</b><i>→</i><b>parsování při startu</b><i>→</i><b>struktury v PLC</b></div><small>watchdog · velké struktury · dlouhý start</small></section><section class="is-good"><span>PO</span><div class="ot-db-flow"><b>pálicí plán</b><i>→</i><b>MariaDB + BR service</b><i>→</i><b>databázové tabulky</b></div><small>vývoj kratší · data přehlednější · lepší provoz</small></section></div><div class="ot-db-bottom" v-click="2"><div><strong>Problém</strong><span>velká CSV, parsing a startup v řádu minut</span></div><div><strong>Přechod</strong><span>data v DB, uživatelské tabulky a přesnější model</span></div><div class="warning"><strong>Takeaway</strong><span>deployment zjednodušený, dev čas kratší, data robustnější</span></div></div><div class="ot-db-bottom" v-click="3"><div><strong>Build once</strong><span>kontejnery zjednodušují deployment</span></div><div><strong>BR service</strong><span>běží na Podman v produkci</span></div><div class="warning"><strong>Specific tags</strong><span>nikdy latest, jen konkrétní verze</span></div></div><div class="slide-id">11</div>
 
 <!--
 [CLICK]
@@ -261,7 +341,7 @@ const useCases = {
 
 # Kde se ještě container<br><span class="accent">hodí v OT?</span>
 <div v-if="!selectedUseCase" class="ot-use-grid"><button class="ot-use-card" v-for="(useCase, key) in useCases" :key="key" @click="selectedUseCase = key"><span>{{ useCase.number }}</span><h2>{{ useCase.title }}</h2><p>{{ useCase.summary }}</p><b>OTEVŘÍT DETAIL · →</b></button></div>
-<div v-else class="ot-use-detail"><button class="ot-use-close" @click="selectedUseCase = null">← PŘEHLED MOŽNOSTÍ</button><div class="ot-use-detail-head"><span>{{ useCases[selectedUseCase].number }}</span><div><h2>{{ useCases[selectedUseCase].title }}</h2><p>{{ useCases[selectedUseCase].summary }}</p></div></div><div class="ot-use-detail-grid"><section><span>CO TO ZNAMENÁ</span><p>{{ useCases[selectedUseCase].detail }}</p></section><section><span>OBCHODNÍ HODNOTA</span><p>{{ useCases[selectedUseCase].value }}</p></section><section class="boundary"><span>NA CO POZOR</span><p>{{ useCases[selectedUseCase].boundary }}</p></section></div></div><div v-if="!selectedUseCase" class="ot-use-footer">Potenciální využití, nikoli automaticky hotové řešení.</div><div class="slide-id">09</div>
+<div v-else class="ot-use-detail"><button class="ot-use-close" @click="selectedUseCase = null">← PŘEHLED MOŽNOSTÍ</button><div class="ot-use-detail-head"><span>{{ useCases[selectedUseCase].number }}</span><div><h2>{{ useCases[selectedUseCase].title }}</h2><p>{{ useCases[selectedUseCase].summary }}</p></div></div><div class="ot-use-detail-grid"><section><span>CO TO ZNAMENÁ</span><p>{{ useCases[selectedUseCase].detail }}</p></section><section><span>OBCHODNÍ HODNOTA</span><p>{{ useCases[selectedUseCase].value }}</p></section><section class="boundary"><span>NA CO POZOR</span><p>{{ useCases[selectedUseCase].boundary }}</p></section></div></div><div v-if="!selectedUseCase" class="ot-use-footer">Potenciální využití, nikoli automaticky hotové řešení.</div><div class="slide-id">12</div>
 <!--
 [CLICK]
 První krok: tohle jsou potenciální scénáře, nikoli hotová řešení; container otevírá prostor pro služby kolem PLC.
@@ -280,7 +360,8 @@ class: ot-slide
 <div class="kicker">LIMITY · TECHNICKÉ POSOUZENÍ</div>
 
 # Container není náhrada PLC runtime ani<br><span class="accent">univerzální řešení</span>
-<div class="ot-limit-grid" v-click="1"><article><span>CO POTŘEBUJE?</span><strong>Runtime / Docker daemon<br>Hostitelský OS + kernel</strong></article><article><span>NA ČEM ZÁVISÍ?</span><strong>CPU architektura · paměť<br>výkon · storage · síť · speciální HW</strong></article><article><span>CO LZE ŘÍDIT?</span><strong>CPU limit / shares · memory limit<br>počet procesů a další runtime limity</strong></article><article class="warning"><span>CO Z TOHO NEPLYNE?</span><strong>Žádná garance real-time<br>safety, dostupnosti ani kritické automatizace</strong></article></div><div class="ot-yes-no" v-click="2"><div><span>ANO</span><b>data · integrace · reporting · dashboardy · přenosné služby · testovací prostředí</b></div><div><span>ZÁVISÍ</span><b>GUI a desktop · platforma · síť · odpovědnost</b></div><div class="no"><span>NE</span><b>real-time řízení · safety · primární I/O · kritická automatizace</b></div></div><div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>Rozhodnutí patří technickému specialistovi.</strong><span>Ověřit runtime, hardware, síť, bezpečnost, aktualizace, odpovědnost a provoz; v praxi jde o image, síť, storage, restart policy, host OS a jasnou odpovědnost za provoz.</span></div><div class="slide-id">10</div>
+<div class="ot-limit-grid" v-click="1"><article><span>CO POTŘEBUJE?</span><strong>Runtime / Docker daemon<br>Hostitelský OS + kernel</strong></article><article><span>NA ČEM ZÁVISÍ?</span><strong>CPU architektura · paměť<br>výkon · storage · síť · speciální HW</strong></article><article><span>CO LZE ŘÍDIT?</span><strong>CPU limit / shares · memory limit<br>počet procesů a další runtime limity</strong></article><article class="warning"><span>CO Z TOHO NEPLYNE?</span><strong>Žádná garance real-time<br>safety, dostupnosti ani kritické automatizace</strong></article></div><div class="ot-yes-no" v-click="2"><div><span>ANO</span><b>data · integrace · reporting · dashboardy · přenosné služby · testovací prostředí</b></div><div><span>ZÁVISÍ</span><b>GUI a desktop · platforma · síť · odpovědnost</b></div><div class="no"><span>NE</span><b>real-time řízení · safety · primární I/O · kritická automatizace</b></div></div><div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>Rozhodnutí patří technickému specialistovi.</strong><span>Ověřit runtime, hardware, síť, bezpečnost, aktualizace, odpovědnost a provoz; v praxi jde o image, síť, storage, restart policy, host OS a jasnou odpovědnost za provoz.</span></div><div class="slide-id">13</div>
+<div class="ot-compliance" v-click="4"><span>JEŠTĚ PŘED DEPLOYMENTEM</span><strong>Ověřit licence runtime, image a závislostí.</strong><b>Právní, security a provozní odpovědnost nejsou vlastnost containeru.</b></div>
 <!--
 [CLICK]
 První krok: container není samostatný počítač. Potřebuje runtime, hostitelský OS, kernel a kompatibilní platformu.
@@ -288,6 +369,8 @@ První krok: container není samostatný počítač. Potřebuje runtime, hostite
 Druhý krok: důležité je posoudit CPU architekturu, paměť, úložiště, síť a případné speciální hardware.
 [CLICK]
 Třetí krok: limity CPU a paměti mohou chránit ostatní služby, ale neřeší real-time, safety ani kritickou dostupnost.
+[CLICK]
+Před deploymentem patří do posouzení také licence runtime, image a závislostí. Tento krok řeší vlastník řešení se security nebo právní podporou podle konkrétního použití.
 [CLICK]
 Závěr: rozhodnutí o použití patří technickému specialistovi. Container je vhodný jen v správném rozsahu a s odpovídajícím provozním modelem.
 -->
@@ -299,7 +382,7 @@ class: dark-slide ot-slide ot-takeaway-slide
 <div class="kicker">SHRNUTÍ · PRAKTICKÁ ZKRATKA</div>
 
 # Container je vhodný, když chcete službu<br><span class="accent">provozovat odděleně od PLC</span>
-<div class="ot-takeaway-grid" v-click="1"><div><mdi-vector-link /><strong>Oddělení</strong><span>vlastní životní cyklus</span></div><div><mdi-update /><strong>Update</strong><span>mimo řídicí aplikaci</span></div><div><mdi-content-copy /><strong>Opakovatelnost</strong><span>stejný balíček znovu</span></div><div><mdi-shield-check-outline /><strong>Stabilita</strong><span>méně driftu prostředí</span></div></div><div class="ot-final-line" v-click="2"><span>PLC</span><b>řídí stroj</b><i>+</i><span>CONTAINER</span><b>provozuje služby okolo PLC</b></div><div class="ot-final-question" v-click="3">Pokud služba nepatří do reálného řídicího cyklu, může být container vhodná cesta.</div><div class="slide-id">11</div>
+<div class="ot-takeaway-grid" v-click="1"><div><mdi-vector-link /><strong>Oddělení</strong><span>vlastní životní cyklus</span></div><div><mdi-update /><strong>Update</strong><span>mimo řídicí aplikaci</span></div><div><mdi-content-copy /><strong>Opakovatelnost</strong><span>stejný balíček znovu</span></div><div><mdi-shield-check-outline /><strong>Stabilita</strong><span>méně driftu prostředí</span></div></div><div class="ot-final-line" v-click="2"><span>PLC</span><b>řídí stroj</b><i>+</i><span>CONTAINER</span><b>provozuje služby okolo PLC</b></div><div class="ot-final-question" v-click="3">Pokud služba nepatří do reálného řídicího cyklu, může být container vhodná cesta.</div><div class="slide-id">14</div>
 <!--
 [CLICK]
 První krok: PLC řídí stroj a zůstává v primární odpovědnosti za deterministické řízení.
