@@ -83,7 +83,7 @@ const buildFiles = {
   <div class="ot-lifecycle-stage is-deploy" v-click="3"><span>03 · SPUSTÍM</span><b>DEPLOY</b><small>image se spustí jako běžící container</small><div class="ot-deploy-animation"><div class="ot-deploy-column"><div class="ot-deploy-action"><span>PULL</span></div><div class="ot-deploy-source"><span>IMAGE</span><strong>service:1.4</strong></div></div><i></i><div class="ot-deploy-column"><div class="ot-deploy-action"><span>RUN</span></div><div class="ot-deploy-target"><span>RUNNING</span><strong>container</strong></div></div></div></div>
 </div>
 <div class="ot-definition" v-click="4"><strong>Image není běžící container.</strong><span>Image je balíček. Container je její spuštěná instance.</span></div>
-<div class="ot-note-row" v-click="4"><span>STEJNÝ BĚH</span><b>v kompatibilním prostředí</b><i></i><span>PŘENOSITELNOST ≠ LIBOVOLNÝ OS</span></div><div class="slide-id">03</div>
+<div class="ot-note-row" v-click="4"><span>STEJNÝ BĚH</span><b>v kompatibilním prostředí</b><i></i><span>LINUX IMAGE ≠ WINDOWS IMAGE</span></div><div class="slide-id">03</div>
 
 <!--
 [CLICK]
@@ -93,7 +93,7 @@ Výsledkem je **image** - verzovaný balíček služby. Konkrétní *tag*, např
 [CLICK]
 Z image se přes *pull* a *run* stane **běžící container**. To je konkrétní instance služby, ne samotný balíček.
 [CLICK]
-Zapamatujme si rozdíl: **image je balíček, container je běžící instance.** Přenositelnost znamená stejný běh v *kompatibilním prostředí*, ne na libovolném OS nebo CPU. Konkrétní platformu vždy posoudí technický specialista.
+Zapamatujme si rozdíl: **image je balíček, container je běžící instance.** Přenositelnost znamená stejný běh v *kompatibilním prostředí*, ne na libovolném OS nebo CPU. Linux image potřebuje Linux kernel, Windows image Windows kernel; mezi platformami proto image není volně přenositelná. Konkrétní platformu vždy posoudí technický specialista.
 -->
 
 ---
@@ -398,11 +398,11 @@ class: ot-slide
 <div class="kicker">LIMITY · TECHNICKÉ POSOUZENÍ</div>
 
 # Container není náhrada PLC runtime ani<br><span class="accent">univerzální řešení</span>
-<div class="ot-limit-grid" v-click="1"><article><span>CO POTŘEBUJE?</span><strong>Runtime / Docker daemon<br>Hostitelský OS + kernel</strong></article><article><span>NA ČEM ZÁVISÍ?</span><strong>CPU architektura · paměť<br>výkon · storage · síť · speciální HW</strong></article><article><span>CO LZE ŘÍDIT?</span><strong>CPU limit / shares · memory limit<br>počet procesů a další runtime limity</strong></article><article class="warning"><span>CO Z TOHO NEPLYNE?</span><strong>Žádná garance real-time<br>safety, dostupnosti ani kritické automatizace</strong></article></div><div class="ot-yes-no" v-click="2"><div><span>ANO</span><b>data · integrace · reporting · dashboardy · přenosné služby · testovací prostředí</b></div><div><span>ZÁVISÍ</span><b>GUI a desktop · platforma · síť · odpovědnost</b></div><div class="no"><span>NE</span><b>real-time řízení · safety · primární I/O · kritická automatizace</b></div></div><div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>Rozhodnutí patří technickému specialistovi.</strong><span>Ověřit runtime, hardware, síť, bezpečnost, aktualizace, odpovědnost a provoz; v praxi jde o image, síť, storage, restart policy, host OS a jasnou odpovědnost za provoz.</span></div><div class="slide-id">13</div>
+<div class="ot-limit-grid" v-click="1"><article><span>CO POTŘEBUJE?</span><strong>Runtime / Docker daemon<br>Hostitelský OS + kernel</strong></article><article><span>WINDOWS A LINUX</span><strong>Linux image: Linux kernel<br>Windows image: Windows kernel</strong></article><article><span>NA ČEM ZÁVISÍ?</span><strong>CPU architektura · paměť<br>výkon · storage · síť · speciální HW</strong></article><article class="warning"><span>CO Z TOHO NEPLYNE?</span><strong>Žádná garance real-time<br>safety, dostupnosti ani kritické automatizace</strong></article></div><div class="ot-yes-no" v-click="2"><div><span>ANO</span><b>data · integrace · reporting · dashboardy · přenosné služby · testovací prostředí</b></div><div><span>ZÁVISÍ</span><b>GUI a desktop · platforma · síť · odpovědnost</b></div><div class="no"><span>NE</span><b>real-time řízení · safety · primární I/O · kritická automatizace</b></div></div><div class="ot-specialist" v-click="3"><mdi-account-hard-hat-outline /><strong>Rozhodnutí patří technickému specialistovi.</strong><span>Ověřit runtime, hardware, síť, bezpečnost, aktualizace, odpovědnost a provoz; v praxi jde o image, síť, storage, restart policy, host OS a jasnou odpovědnost za provoz.</span></div><div class="slide-id">13</div>
 <div class="ot-compliance" v-click="4"><span>JEŠTĚ PŘED DEPLOYMENTEM</span><strong>Ověřit licence runtime, image a závislostí.</strong><b>Právní, security a provozní odpovědnost nejsou vlastnost containeru.</b></div>
 <!--
 [CLICK]
-Container není samostatný počítač. Potřebuje *runtime*, hostitelský OS a kernel; zároveň závisí na CPU architektuře, paměti, storage, síti a případném speciálním hardwaru.
+Container není samostatný počítač. Potřebuje *runtime*, hostitelský OS a kernel. Linux image potřebuje Linux kernel, Windows image Windows kernel; přenositelnost tedy neznamená volný přesun mezi Windows a Linuxem. Zároveň závisí na CPU architektuře, paměti, storage, síti a případném speciálním hardwaru.
 [CLICK]
 Tady je hranice použití: **ano** pro data a integraci; **záleží** na platformě, síti a odpovědnosti; **ne** pro real-time řízení, safety, primární I/O a kritickou automatizaci. Limity CPU a paměti nejsou garancí těchto vlastností.
 [CLICK]
