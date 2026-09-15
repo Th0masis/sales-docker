@@ -883,6 +883,63 @@
   box-shadow: inset 0 0 0 1px rgba(255, 122, 0, 0.06);
 }
 
+.ot-stack-diagram {
+  min-width: 0;
+  min-height: 246px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid var(--br-orange);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(255, 122, 0, 0.06);
+}
+
+.ot-stack-diagram h2 {
+  margin: 0 0 10px;
+  color: var(--br-orange);
+  font: 600 11px/1.2 'IBM Plex Mono', monospace;
+  text-align: center;
+}
+
+.ot-stack-lanes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.ot-stack-lanes div,
+.ot-stack-diagram > b,
+.ot-stack-diagram > strong {
+  display: block;
+  padding: 8px 4px;
+  color: #f5f7f8;
+  font: 600 9px/1.2 'IBM Plex Mono', monospace;
+  text-align: center;
+}
+
+.ot-stack-lanes div {
+  background: #075c9e;
+}
+
+.ot-stack-lanes + .ot-stack-lanes div {
+  background: #324b7a;
+}
+
+.ot-stack-guest div,
+.ot-stack-diagram > b {
+  background: #6d7073;
+}
+
+.ot-stack-diagram > b,
+.ot-stack-diagram > strong {
+  margin-top: 6px;
+}
+
+.ot-stack-diagram > strong {
+  background: #075c9e;
+}
+
 .ot-stack-diagrams figcaption {
   margin-bottom: 10px;
   color: var(--br-orange);
