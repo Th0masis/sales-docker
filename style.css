@@ -811,6 +811,12 @@
   object-fit: contain;
 }
 
+.ot-compare-layout + .ot-quote {
+  margin-top: 12px;
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
 .ot-compare-visual figcaption {
   display: flex;
   justify-content: center;
