@@ -9,7 +9,12 @@ const openSlide = async slideNumber => {
   for (let attempt = 0; attempt < 10; attempt += 1) {
     try {
       await page.goto(`${baseUrl}/${slideNumber}`, { waitUntil: 'domcontentloaded', timeout: 3000 })
-      await page.locator('.slide-id').first().waitFor({ timeout: 3000 })
+      const marker = page.locator('.slide-id:visible').first()
+      await marker.waitFor({ timeout: 3000 })
+      const expectedMarker = String(slideNumber).padStart(2, '0')
+      if ((await marker.textContent())?.trim() !== expectedMarker) {
+        throw new Error(`Expected slide ${expectedMarker}, found ${(await marker.textContent())?.trim()}`)
+      }
       return
     } catch (error) {
       lastError = error
