@@ -4,8 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "node --use-system-ca node_modules/@slidev/cli/bin/slidev.mjs --open",
+    "start": "node --use-system-ca node_modules/@slidev/cli/bin/slidev.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
     "build": "slidev build",
-    "export": "slidev export --output agentic-engineering.pdf"
+    "export": "slidev export --output agentic-engineering.pdf",
+    "test:content": "node test-content.mjs",
+    "test:smoke": "node test-smoke.mjs"
   },
   "devDependencies": {
     "@iconify-json/mdi": "latest",

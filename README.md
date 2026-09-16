@@ -19,6 +19,18 @@ npm run build
 
 Statický výstup se zapisuje do `dist/`.
 
+## Automatické kontroly
+
+```powershell
+npm run test:content
+npm run build
+npm run start
+# v druhém terminálu
+npm run test:smoke
+```
+
+GitHub Actions spouští stejné kontroly při změně prezentace nebo workflow. Smoke test ověřuje načtení vybraných slidů a interaktivní menu na slide 12.
+
 ## Obsah decku
 
 - Slide 01: titul a hlavní teze.

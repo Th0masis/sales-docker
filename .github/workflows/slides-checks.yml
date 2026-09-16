@@ -1,0 +1,31 @@
+name: Slides checks
+
+on:
+  push:
+    paths:
+      - '**'
+      - '.github/workflows/slides-checks.yml'
+  pull_request:
+    paths:
+      - '**'
+      - '.github/workflows/slides-checks.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - run: npm ci
+      - run: npm run test:content
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run preview > preview.log 2>&1 &
+      - run: SLIDES_URL=http://127.0.0.1:4173 npm run test:smoke
